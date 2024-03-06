@@ -1,0 +1,13 @@
+.searchblock {
+  display: flex;
+  flex-direction: column;
+
+  .searchbar {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    background: rgba(var(--background-secondary-rgb));
+    padding: 12px;
+    border-radius: 8px;
+  }
+}
