@@ -65,7 +65,7 @@
   }
 
   &_primary {
-    color: $text_primary;
+    color: rgba(var(--font-rgb));
   }
   &_secondary {
     color: $text_secondary;

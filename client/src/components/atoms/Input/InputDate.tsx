@@ -57,13 +57,17 @@ export const InputDate = forwardRef<HTMLInputElement, TInputDate>(
     const inputRef = useRef<HTMLInputElement>(null);
     const inputRefCombine = useCombinedRef(ref, inputRef);
 
-    const inputClasses = classNames(styles.date, {
-      [className as string]: className,
-    })
+    inputRef.current?.setAttribute("min", "2024-01-01")
+    inputRef.current?.setAttribute("max", "2024-12-31")
 
     return (
-      <div className={inputClasses}>
-        <input ref={inputRefCombine} type='date' onChange={onChange} />
+      <div className={styles.inputBlock}>
+        <label
+          htmlFor={id}
+        >
+          {label}
+        </label>
+        <input className={className} ref={inputRefCombine} id='' type='date' onChange={onChange} />
       </div>
     )
   })

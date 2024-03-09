@@ -1,6 +1,13 @@
 .inputBlock {
   width: 100%;
   position: inherit;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  label {
+    font-size: small;
+  }
 }
 
 // ::-webkit-datetime-edit {
@@ -21,12 +28,18 @@ input[type='date'],
 }
 
 ::-webkit-calendar-picker-indicator {
-  color-scheme: dark;
+  color-scheme: var(--color-scheme);
+}
+
+::-webkit-datetime-edit-year-field {
+  background: rgba(var(--background-rgb));
+  color: rgba(var(--background-rgb));
 }
 
 .input,
 input[type='date'] {
   width: 100%;
+  min-width: 200px;
   padding: 12px 12px;
   border: 1px solid rgba(var(--background-rgb));
   background: rgba(var(--background-rgb));
@@ -54,6 +67,8 @@ input[type='date'] {
 }
 
 .select {
+  width: 100%;
+  min-width: 200px;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;

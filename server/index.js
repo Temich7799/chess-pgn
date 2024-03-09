@@ -23,7 +23,6 @@ app.use(express.json({ limit: '20mb', extended: true }));
 
 app.get('/checkUser', (req, res) => {
   const email = req.query.email;
-  console.log(email);
   if (!email) {
     return res.status(400).json({ error: 'Email is required' });
   }
@@ -33,8 +32,6 @@ app.get('/checkUser', (req, res) => {
       return res.status(500).json({ error: error.message });
     }
 
-    console.log(results);
-
     if (results.length > 0) {
       res.json({ exists: true });
     } else {
@@ -43,8 +40,8 @@ app.get('/checkUser', (req, res) => {
   });
 });
 
-app.get('/users', (req, res) => {
-  connection.query('SELECT * FROM users', (error, results) => {
+app.get('/cities', (req, res) => {
+  connection.query('SELECT city FROM users', (error, results) => {
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
@@ -55,31 +52,32 @@ app.get('/users', (req, res) => {
 
 app.get('/getUserData', (req, res) => {
   const { birthday, city } = req.query;
-
-  if (!birthday || !city) {
-    return res.status(400).json({ error: 'Birthday and city are required' });
+  if (!birthday) {
+    return res.status(400).json({ error: 'Birthday is required' });
   }
+  const newbirthday = birthday.slice(5, birthday.length);
+  const query = city
+    ? 'SELECT * FROM users WHERE birthday = ? AND city = ?'
+    : 'SELECT * FROM users WHERE birthday = ?';
 
-  connection.query(
-    'SELECT * FROM users WHERE birthday = ? AND city = ?',
-    [birthday, city],
-    (error, results) => {
-      if (error) {
-        return res.status(500).json({ error: error.message });
-      }
+  connection.query(query, [newbirthday, city], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
 
-      if (results.length > 0) {
-        res.json({ userData: results });
-      } else {
-        res.json({ message: 'No user found with the specified criteria' });
-      }
-    },
-  );
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res.json({ message: 'No user found with the specified criteria' });
+    }
+  });
 });
 
 app.post('/addUser', (req, res) => {
   const { name, birthday, city, email, language, foreign_language, another_foreign_language } =
     req.body;
+
+  const newbirthday = birthday.slice(5, birthday.length);
   const query =
     'INSERT INTO users (name, birthday, city, email, native_lang, foreign_lang, second_foreign_lang) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
@@ -93,7 +91,7 @@ app.post('/addUser', (req, res) => {
     } else {
       connection.query(
         query,
-        [name, birthday, city, email, language, foreign_language, another_foreign_language],
+        [name, newbirthday, city, email, language, foreign_language, another_foreign_language],
         (err, results) => {
           if (err) {
             console.error('Error adding user: ' + err.stack);

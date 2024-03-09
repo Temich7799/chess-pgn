@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CheckUserResponse } from './types';
+import { CheckUserResponse, CityRespone, GetUserQuery, GetUserResponse } from './types';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env['REACT_APP_API'],
@@ -15,11 +15,14 @@ export const Controller = createApi({
 
   baseQuery: baseQuery,
   endpoints: (builder) => ({
+    getCities: builder.query<CityRespone[], void>({
+      query: () => `cities`,
+    }),
     checkUser: builder.query({
       query: (email) => `checkUser?email=${email}`,
     }),
-    getUserData: builder.query({
-      query: ({ birthday, city }) => `getUserData?date=${birthday}&city=${city}`,
+    getUserData: builder.query<GetUserResponse[], GetUserQuery>({
+      query: ({ birthday, city }) => `getUserData?birthday=${birthday}&city=${city}`,
     }),
     addUser: builder.mutation({
       query: (userData) => ({
@@ -31,4 +34,9 @@ export const Controller = createApi({
   }),
 });
 
-export const { useCheckUserQuery, useGetUserDataQuery, useAddUserMutation } = Controller;
+export const {
+  useAddUserMutation,
+  useLazyCheckUserQuery,
+  useLazyGetUserDataQuery,
+  useGetCitiesQuery,
+} = Controller;

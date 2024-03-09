@@ -73,7 +73,7 @@ export const SignUp = () => {
           control={control}
           rules={baseValidator}
           render={({ field }) => (
-            <InputDate {...field} />
+            <InputDate {...field} label={t('birthday')} />
           )}
         />
         {errors.birthday && <span>{errors.birthday.message}</span>}

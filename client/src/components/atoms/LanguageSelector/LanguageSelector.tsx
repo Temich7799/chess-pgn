@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import styles from './LanguageSelector.module.scss'
 
 export const LanguageSelector = () => {
   const { i18n } = useTranslation();
@@ -14,7 +15,7 @@ export const LanguageSelector = () => {
   };
 
   return (
-    <select onChange={changeLanguage}>
+    <select onChange={changeLanguage} className={styles.langselector}>
       <option value="ru">Ru</option>
       <option value="en">En</option>
       <option value="es">Es</option>

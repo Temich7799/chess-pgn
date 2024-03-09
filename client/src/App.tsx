@@ -8,15 +8,17 @@ import { LanguageSelector } from './components/atoms/LanguageSelector/LanguageSe
 
 function App() {
   return (
-    <Provider store={store}>
-      <LanguageSelector />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<SearchPage />} />
-          <Route path="/signup" element={<SignUp />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <div className='app'>
+      <Provider store={store}>
+        <LanguageSelector />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<SearchPage />} />
+            <Route path="/signup" element={<SignUp />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </div>
   );
 }
 
