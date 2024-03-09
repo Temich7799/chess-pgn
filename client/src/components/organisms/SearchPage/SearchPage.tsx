@@ -4,6 +4,8 @@ import { SearchBar } from '../../molecules/SearchBar/SearchBar'
 
 export const SearchPage = () => {
   return (
-    <div className={styles.searchpage}><SearchBar /></div>
+    <div className={styles.searchpage}>
+      <SearchBar />
+    </div>
   )
 }

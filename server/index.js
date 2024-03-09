@@ -23,7 +23,7 @@ app.use(express.json({ limit: '20mb', extended: true }));
 
 app.get('/checkUser', (req, res) => {
   const email = req.query.email;
-
+  console.log(email);
   if (!email) {
     return res.status(400).json({ error: 'Email is required' });
   }
@@ -32,6 +32,8 @@ app.get('/checkUser', (req, res) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
+
+    console.log(results);
 
     if (results.length > 0) {
       res.json({ exists: true });
@@ -73,6 +75,36 @@ app.get('/getUserData', (req, res) => {
       }
     },
   );
+});
+
+app.post('/addUser', (req, res) => {
+  const { name, birthday, city, email, language, foreign_language, another_foreign_language } =
+    req.body;
+  const query =
+    'INSERT INTO users (name, birthday, city, email, native_lang, foreign_lang, second_foreign_lang) VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+  connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    if (results.length > 0) {
+      res.status(400).json('User already exists');
+    } else {
+      connection.query(
+        query,
+        [name, birthday, city, email, language, foreign_language, another_foreign_language],
+        (err, results) => {
+          if (err) {
+            console.error('Error adding user: ' + err.stack);
+            res.status(500).json('Error adding user');
+            return;
+          }
+          res.status(200).json('User added successfully');
+        },
+      );
+    }
+  });
 });
 
 async function start() {

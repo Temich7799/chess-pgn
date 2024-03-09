@@ -5,9 +5,15 @@
   .searchbar {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 12px;
     background: rgba(var(--background-secondary-rgb));
     padding: 12px;
     border-radius: 8px;
+
+    .errors {
+      border: 1px solid rgb(181, 75, 75);
+      border-radius: 8px;
+    }
   }
 }
