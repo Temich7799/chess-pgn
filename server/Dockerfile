@@ -5,13 +5,13 @@ FROM node:20.5.0
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
-
-# Install dependencies
-RUN npm install
+# COPY package*.json ./
 
 # Copy the rest of the application code to the working directory
 COPY . .
+
+# Install dependencies
+RUN npm install
 
 # Expose the port that the server will run on
 EXPOSE 5000
@@ -23,4 +23,4 @@ EXPOSE 5000
 # ENV MYSQL_DATABASE=search_clients_ilya
 
 # Start the Express server
-CMD ["node", "index.js"]
+CMD ["npm", "run", "server"]

@@ -45,6 +45,7 @@
 #     - PMA_ARBITRARY=1
 
 version: '3.8'
+
 services:
   server:
     build:
@@ -66,3 +67,4 @@ services:
       - '3000:3000'
     stdin_open: true
     tty: true
+    restart: always
