@@ -1,23 +1,26 @@
 const express = require('express');
 const path = require('path');
-const mysql = require('mysql');
+const mysql = require('mysql2');
+var serveStatic = require('serve-static');
 
 require('dotenv').config();
 const app = express();
 const PORT = process.env.port || 5000;
 
 const connection = mysql.createConnection({
-  host: `${process.env.HOST}`,
-  user: `${process.env.USER}`,
-  password: `${process.env.PASSWORD}`,
-  database: `${process.env.DATABASE}`,
+  port: '3306',
+  user: 'gen_user',
+  host: '109.71.243.64',
+  database: 'default_db',
+  password: '>ni;{0ns7GdXhb',
 });
 
+// app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '20mb', extended: true }));
 
 app.use(express.static(path.join(__dirname, '../client/build')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.join(__dirname, '../client/build', '/index.html'));
 });
 
 app.get('/checkUser', (req, res) => {
