@@ -7,19 +7,18 @@ const app = express();
 const PORT = process.env.port || 5000;
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'search_clients_ilya',
+  host: `${process.env.HOST}`,
+  user: `${process.env.USER}`,
+  password: `${process.env.PASSWORD}`,
+  database: `${process.env.DATABASE}`,
 });
 
 app.use(express.json({ limit: '20mb', extended: true }));
 
-// for linux server
-// app.use(express.static(path.join(__dirname, './../../build')));
-// app.get('*', (req, res) => {
-//   res.sendFile('index.html', { root: path.join(__dirname, './../../build') });
-// });
+app.use(express.static(path.join(__dirname, '../client/build')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+});
 
 app.get('/checkUser', (req, res) => {
   const email = req.query.email;
@@ -55,12 +54,12 @@ app.get('/getUserData', (req, res) => {
   if (!birthday) {
     return res.status(400).json({ error: 'Birthday is required' });
   }
-  const newbirthday = birthday.slice(5, birthday.length);
+
   const query = city
     ? 'SELECT * FROM users WHERE birthday = ? AND city = ?'
     : 'SELECT * FROM users WHERE birthday = ?';
 
-  connection.query(query, [newbirthday, city], (error, results) => {
+  connection.query(query, [birthday, city], (error, results) => {
     if (error) {
       return res.status(500).json({ error: error.message });
     }
@@ -77,7 +76,6 @@ app.post('/addUser', (req, res) => {
   const { name, birthday, city, email, language, foreign_language, another_foreign_language } =
     req.body;
 
-  const newbirthday = birthday.slice(5, birthday.length);
   const query =
     'INSERT INTO users (name, birthday, city, email, native_lang, foreign_lang, second_foreign_lang) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
@@ -91,7 +89,7 @@ app.post('/addUser', (req, res) => {
     } else {
       connection.query(
         query,
-        [name, newbirthday, city, email, language, foreign_language, another_foreign_language],
+        [name, birthday, city, email, language, foreign_language, another_foreign_language],
         (err, results) => {
           if (err) {
             console.error('Error adding user: ' + err.stack);

@@ -39,7 +39,7 @@ input[type='date'],
 .input,
 input[type='date'] {
   width: 100%;
-  min-width: 200px;
+  min-width: 150px;
   padding: 12px 12px;
   border: 1px solid rgba(var(--background-rgb));
   background: rgba(var(--background-rgb));
@@ -68,7 +68,7 @@ input[type='date'] {
 
 .select {
   width: 100%;
-  min-width: 200px;
+  min-width: 150px;
   appearance: none;
   -moz-appearance: none;
   -webkit-appearance: none;

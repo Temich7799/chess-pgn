@@ -8,11 +8,13 @@ import { Button } from '../../atoms/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { useAddUserMutation } from '../../../api/Controller';
 import { useState } from 'react';
+import { useMonth } from '../../../hooks/useMonth';
 
 export type FormValues = {
   name: string;
   email: string;
-  birthday: string;
+  month: string;
+  day: number;
   city: string;
   language: string;
   foreign_language?: string;
@@ -24,6 +26,7 @@ export const SignUp = () => {
     register,
     handleSubmit,
     control,
+    watch,
     formState: { errors, isValid },
   } = useForm<FormValues>({
     mode: 'all',
@@ -32,12 +35,14 @@ export const SignUp = () => {
   const { t } = useTranslation();
   const [addUser, { isLoading, isError }] = useAddUserMutation();
   const [error, setError] = useState<string>()
+  const { month } = useMonth()
+  const selectedMonth = watch('month')
 
-  const handleSubmitSignUp = async ({ name, birthday, city, email, language, foreign_language, another_foreign_language }: FormValues) => {
+  const handleSubmitSignUp = async ({ name, month, day, city, email, language, foreign_language, another_foreign_language }: FormValues) => {
     try {
       await addUser({
         name,
-        birthday,
+        birthday: `${day}/${month}`,
         city,
         email,
         language,
@@ -47,7 +52,6 @@ export const SignUp = () => {
       navigate('/');
     } catch (err) {
       if (err && typeof err === 'object' && 'data' in err && typeof err.data === 'string') {
-        console.log('here')
         setError(err.data)
       }
       console.log(err)
@@ -68,15 +72,8 @@ export const SignUp = () => {
             {errors?.name?.message}
           </Text>
         )}
-        <Controller
-          name="birthday"
-          control={control}
-          rules={baseValidator}
-          render={({ field }) => (
-            <InputDate {...field} label={t('birthday')} />
-          )}
-        />
-        {errors.birthday && <span>{errors.birthday.message}</span>}
+        <InputSelect className={errors.city ? styles.errors : ''} type='month' month={month} {...register('month', baseValidator)} />
+        <InputSelect className={errors.city ? styles.errors : ''} type='day' month={month} {...register('day', baseValidator)} selectedMonth={selectedMonth} />
         <Input type="label" id="city" placeholder={t('city')} {...register('city', baseValidator)} />
         {!!errors.city && (
           <Text tag="span" size="xs" theme="alert">
@@ -94,7 +91,7 @@ export const SignUp = () => {
             {errors?.email?.message}
           </Text>
         )}
-        <InputSelect type='native' {...register('language', baseValidator)} />
+        <InputSelect type='language' {...register('language', baseValidator)} />
         {!!errors.language && (
           <Text tag="span" size="xs" theme="alert">
             {errors?.language?.message}
@@ -108,7 +105,6 @@ export const SignUp = () => {
         </Button>
       </form>
       {error}
-      {/* {error && typeof error === 'object' && 'data' in error && typeof error.data === 'string' && <div>Error: {error.data}</div>} */}
     </div>
   );
 }

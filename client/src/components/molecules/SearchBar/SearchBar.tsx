@@ -12,9 +12,11 @@ import { useNavigate } from 'react-router-dom';
 import { GetUserResponse } from '../../../api/types';
 import { Table } from '../../atoms/Table/Table';
 import { useTranslation } from 'react-i18next';
+import { useMonth } from '../../../hooks/useMonth';
 
 export type userData = {
-  birthday: string;
+  day: number;
+  month: string;
   email: string,
   city?: string,
 }
@@ -40,24 +42,22 @@ export const SearchBar = () => {
   const uniqueCities = data?.filter((city, index) => {
     return data.findIndex(obj => obj.city === city.city) === index;
   });
-  const { t } = useTranslation();
 
-  const handleSearch = async ({ birthday, email, city }: userData) => {
-    console.log(typeof birthday, email, city)
+  const { t } = useTranslation();
+  const { month } = useMonth()
+  const selectedMonth = watch('month')
+
+  const handleSearch = async ({ day, month, email, city }: userData) => {
     try {
       const isExist = await checkUser(email)
-      console.log(isExist)
       if (isExist.data.exists) {
-        const data = await getUserData({ birthday: birthday, city: city })
-        console.log(data)
+        const data = await getUserData({ birthday: `${day}/${month}`, city: city })
         setUsersData(data?.data)
       } else {
         navigate('/signup')
       }
     } catch (error) {
-
     }
-
   }
 
   const onSubmit: SubmitHandler<userData> = (data) => {
@@ -67,20 +67,14 @@ export const SearchBar = () => {
   return (
     <div className={styles.searchblock}>
       <div className={styles.search}>
-        <Text tag="h1" >Выбери</Text>
+        <Text tag="h1" >{t('choose')}</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.searchbar}>
-            <Controller
-              name="birthday"
-              control={control}
-              rules={baseValidator}
-              render={({ field }) => (
-                <InputDate className={errors.birthday ? styles.errors : ''} {...field} label={t('date')} />
-              )}
-            />
+            <InputSelect className={errors.city ? styles.errors : ''} type='month' month={month} label={t('month')} {...register('month', baseValidator)} />
+            <InputSelect className={errors.city ? styles.errors : ''} type='day' month={month} label={t('day')} {...register('day', baseValidator)} selectedMonth={selectedMonth} />
             <InputSelect className={errors.city ? styles.errors : ''} type='cities' city={uniqueCities} {...register('city')} label={t('city')} />
             <Input className={errors.email ? styles.errors : ''} type='email' placeholder='email' {...register('email', emailValidator)} label={t('email')} />
-            <Button type='submit'>Search</Button>
+            <Button type='submit'>{t('search_btn')}</Button>
           </div>
         </form>
       </div>

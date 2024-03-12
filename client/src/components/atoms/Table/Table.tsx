@@ -4,7 +4,6 @@ import { GetUserResponse } from '../../../api/types'
 
 export const Table = (usersData: GetUserResponse[]) => {
   const { t } = useTranslation()
-  console.log(usersData)
 
   return (
     <table className={styles.table}>
