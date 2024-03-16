@@ -18,10 +18,10 @@ const connection = mysql.createConnection({
 // app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '20mb', extended: true }));
 
-// app.use(express.static(path.join(__dirname, './build')));
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, './build', '/index.html'));
-// });
+app.use(express.static(path.join(__dirname, './build')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './build', '/index.html'));
+});
 
 app.get('/checkUser', (req, res) => {
   const email = req.query.email;

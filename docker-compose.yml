@@ -61,10 +61,10 @@ services:
       - DB_NAME=dbname
     restart: always
 
-  client:
-    build: ./client
-    ports:
-      - '3000:3000'
-    stdin_open: true
-    tty: true
-    restart: always
+  # client:
+  #   build: ./client
+  #   ports:
+  #     - '3000:3000'
+  #   stdin_open: true
+  #   tty: true
+  #   restart: always

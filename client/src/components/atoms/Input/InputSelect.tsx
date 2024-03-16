@@ -1,9 +1,10 @@
-import React, { DetailedHTMLProps, HTMLAttributes, forwardRef, useRef, useState } from 'react';
+import React, { DetailedHTMLProps, HTMLAttributes, forwardRef, useEffect, useRef, useState } from 'react';
 import styles from './Input.module.scss'
 import { languages } from '../../../json/languages';
 import { useCombinedRef } from '../../../hooks/useCombinedRef';
 import { useTranslation } from 'react-i18next';
 import { CityRespone } from '../../../api/types';
+import classNames from 'classnames';
 
 type Month = {
   name: string;
@@ -18,10 +19,13 @@ interface InputSelect extends DetailedHTMLProps<HTMLAttributes<HTMLSelectElement
   city?: CityRespone[];
   month?: Month[];
   selectedMonth?: string;
+  currentMonth?: number;
+  currentDate?: number;
 }
 
-export const InputSelect = forwardRef<HTMLSelectElement, InputSelect>(({ onChange, label, type, name, city, month, selectedMonth }, ref): JSX.Element => {
+export const InputSelect = forwardRef<HTMLSelectElement, InputSelect>(({ onChange, label, type, name, city, month, selectedMonth, currentMonth, currentDate, className, defaultValue }, ref): JSX.Element => {
   const [selectedLanguage, setSelectedLanguage] = useState('');
+  const [newSelectedMonth, setSelectedMonth] = useState(selectedMonth)
   const inputRef = useRef<HTMLSelectElement>(null);
   const inputRefCombine = useCombinedRef(ref, inputRef);
   const { t } = useTranslation();
@@ -31,10 +35,31 @@ export const InputSelect = forwardRef<HTMLSelectElement, InputSelect>(({ onChang
     onChange?.(e);
   };
 
+  useEffect(() => {
+    setSelectedMonth(selectedMonth);
+  }, [selectedMonth]);
+
+  useEffect(() => {
+    if (month) {
+      if (currentMonth) {
+        setSelectedLanguage(month[`${currentMonth}`].num)
+        setSelectedMonth(month[`${currentMonth}`].num);
+      }
+
+      if (currentDate) {
+        setSelectedLanguage(`${currentDate}`)
+      }
+    }
+  }, [currentMonth, currentDate])
+
+  const inputClasses = classNames(styles.select, {
+    [className as string]: className,
+  })
+
   return (
     <div className={styles.inputBlock}>
       <label htmlFor={type}>{label}</label>
-      <select ref={inputRefCombine} className={styles.select} name={name} id={type} value={selectedLanguage} onChange={handleLanguageChange}>
+      <select ref={inputRefCombine} defaultValue={defaultValue} className={inputClasses} name={name} id={type} value={selectedLanguage} onChange={handleLanguageChange}>
         <option value={""}>{t(type)}</option>
         {type !== 'cities' && type !== 'month' && type !== 'day' && languages.map((language, index) => (
           <option key={language.code} value={language.name}>
@@ -54,7 +79,7 @@ export const InputSelect = forwardRef<HTMLSelectElement, InputSelect>(({ onChang
           ))
         }
         {
-          type === 'day' && month?.find(month => month.num === selectedMonth)?.countDates.map((day, index) => (
+          type === 'day' && month?.find(month => month.num === newSelectedMonth)?.countDates.map((day, index) => (
             <option key={`${selectedMonth}_${index}`} value={day}>
               {day}
             </option>

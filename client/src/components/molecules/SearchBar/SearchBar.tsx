@@ -13,6 +13,7 @@ import { GetUserResponse } from '../../../api/types';
 import { Table } from '../../atoms/Table/Table';
 import { useTranslation } from 'react-i18next';
 import { useMonth } from '../../../hooks/useMonth';
+import { BirthdayText } from '../BirthdayText/BirthdayText';
 
 export type userData = {
   day: number;
@@ -28,11 +29,23 @@ export const SearchBar = () => {
     reset,
     control,
     watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm<userData>({
     mode: 'all',
-    defaultValues: {},
   });
+  const { month } = useMonth()
+
+  const [currentMonth, setCurrentMonth] = useState(0)
+  const [currentDate, setCurrentDate] = useState(0)
+
+  useEffect(() => {
+    const date = new Date();
+    setCurrentMonth(date.getMonth());
+    setCurrentDate(date.getDate())
+    setValue('day', date.getDate())
+    setValue('month', `${date.getMonth() + 1}`)
+  }, [])
 
   const [checkUser, { isError }] = useLazyCheckUserQuery();
   const [getUserData] = useLazyGetUserDataQuery();
@@ -44,8 +57,9 @@ export const SearchBar = () => {
   });
 
   const { t } = useTranslation();
-  const { month } = useMonth()
+
   const selectedMonth = watch('month')
+  const selectedDay = watch('day')
 
   const handleSearch = async ({ day, month, email, city }: userData) => {
     try {
@@ -70,8 +84,8 @@ export const SearchBar = () => {
         <Text tag="h1" >{t('choose')}</Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.searchbar}>
-            <InputSelect className={errors.city ? styles.errors : ''} type='month' month={month} label={t('month')} {...register('month', baseValidator)} />
-            <InputSelect className={errors.city ? styles.errors : ''} type='day' month={month} label={t('day')} {...register('day', baseValidator)} selectedMonth={selectedMonth} />
+            <InputSelect className={errors.month ? styles.errors : ''} defaultValue={currentMonth} type='month' currentMonth={currentMonth} month={month} label={t('month')} {...register('month', baseValidator)} />
+            <InputSelect className={errors.day ? styles.errors : ''} defaultValue={currentDate} type='day' currentMonth={currentMonth} currentDate={currentDate} month={month} label={t('day')} {...register('day', baseValidator)} selectedMonth={selectedMonth} />
             <InputSelect className={errors.city ? styles.errors : ''} type='cities' city={uniqueCities} {...register('city')} label={t('city')} />
             <Input className={errors.email ? styles.errors : ''} type='email' placeholder='email' {...register('email', emailValidator)} label={t('email')} />
             <Button type='submit'>{t('search_btn')}</Button>
@@ -79,6 +93,7 @@ export const SearchBar = () => {
         </form>
       </div>
       {!!usersData && <Table {...usersData} />}
+      <BirthdayText day={selectedDay} month={selectedMonth} />
     </div>
   )
 }

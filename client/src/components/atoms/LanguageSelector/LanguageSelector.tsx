@@ -18,9 +18,7 @@ export const LanguageSelector = () => {
     <select onChange={changeLanguage} className={styles.langselector}>
       <option value="ru">Ru</option>
       <option value="en">En</option>
-      <option value="es">Es</option>
       <option value="de">De</option>
-      <option value="fr">Fr</option>
     </select>
   );
 };

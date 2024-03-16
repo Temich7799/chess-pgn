@@ -6,47 +6,47 @@ export const useMonth = () => {
   const month = [
     {
       name: t('jan'),
-      num: '01',
+      num: '1',
       countDates: Array.from({ length: 31 }, (_, i) => i + 1),
     },
     {
       name: t('feb'),
-      num: '02',
+      num: '2',
       countDates: Array.from({ length: 29 }, (_, i) => i + 1),
     },
     {
       name: t('mar'),
-      num: '03',
+      num: '3',
       countDates: Array.from({ length: 31 }, (_, i) => i + 1),
     },
     {
       name: t('apr'),
-      num: '04',
+      num: '4',
       countDates: Array.from({ length: 30 }, (_, i) => i + 1),
     },
     {
       name: t('may'),
-      num: '05',
+      num: '5',
       countDates: Array.from({ length: 31 }, (_, i) => i + 1),
     },
     {
       name: t('jun'),
-      num: '06',
+      num: '6',
       countDates: Array.from({ length: 30 }, (_, i) => i + 1),
     },
     {
       name: t('jul'),
-      num: '07',
+      num: '7',
       countDates: Array.from({ length: 31 }, (_, i) => i + 1),
     },
     {
       name: t('aug'),
-      num: '08',
+      num: '8',
       countDates: Array.from({ length: 31 }, (_, i) => i + 1),
     },
     {
       name: t('sep'),
-      num: '09',
+      num: '9',
       countDates: Array.from({ length: 30 }, (_, i) => i + 1),
     },
     {

@@ -17,8 +17,8 @@ export const Table = (usersData: GetUserResponse[]) => {
         <th>{t('another_foreign')}</th>
       </tr>
 
-      {Object.values(usersData).map((user) => (
-        <tr>
+      {Object.values(usersData).map((user, index) => (
+        <tr key={`${user.name}_${index}`}>
           <td>{user.email}</td>
           <td>{user.name}</td>
           <td>{user.birthday}</td>
