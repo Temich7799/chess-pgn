@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mysql = require('mysql2');
+const cors = require('cors');
 var serveStatic = require('serve-static');
 
 require('dotenv').config();
@@ -15,13 +16,13 @@ const connection = mysql.createConnection({
   password: '>ni;{0ns7GdXhb',
 });
 
-// app.use(cors({ origin: '*' }));
+app.use(cors({ origin: '*' }));
 app.use(express.json({ limit: '20mb', extended: true }));
 
-app.use(express.static(path.join(__dirname, './build')));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './build', '/index.html'));
-});
+// app.use(express.static(path.join(__dirname, './build')));
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, './build', '/index.html'));
+// });
 
 app.get('/checkUser', (req, res) => {
   const email = req.query.email;
