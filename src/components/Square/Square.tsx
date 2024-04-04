@@ -1,12 +1,17 @@
+import React from 'react';
 import { Box } from '@mui/material';
-import React, { ReactNode } from 'react';
+import Piece from "@chessire/pieces";
+import { FigurePosition } from '../../ts/FigurePositionType';
 
 export type SquareProps = {
-	children?: ReactNode;
 	rowIndex: number;
+	data: FigurePosition;
 }
 
-const Square: React.FC<SquareProps> = ({ children: Figure, rowIndex }) => {
+const Square: React.FC<SquareProps> = ({ data, rowIndex }) => {
+
+	const { figure: figureType, type: figureColor } = data;
+
 	return (
 		<Box height={65} width={65} sx={{
 			bgcolor: 'primary.main',
@@ -14,7 +19,7 @@ const Square: React.FC<SquareProps> = ({ children: Figure, rowIndex }) => {
 				bgcolor: 'primary.dark',
 			},
 		}}>
-			{Figure}
+			{(figureType && figureColor) && <Piece color={figureColor} width={65} piece={figureType} />}
 		</Box>
 	);
 };

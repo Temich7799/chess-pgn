@@ -1,6 +1,9 @@
 import React from 'react';
 import { Square } from '../Square';
-import { Box, Container, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
+import { useSelector } from 'react-redux';
+import { selectFigurePositionsMap } from '../../redux/slices/figurePositionsMapSlice';
+import { FigurePosition } from '../../ts/FigurePositionType';
 
 export type FieldProps = {
 
@@ -8,16 +11,15 @@ export type FieldProps = {
 
 const Field: React.FC<FieldProps> = ({ }) => {
 
-	const rows = new Array(8).fill(null);
-	const cols = rows;
+	const { initialMap: rows } = useSelector(selectFigurePositionsMap);
 
 	return (
 		<Box sx={{ width: 'fit-content', margin: '0 auto' }}>
 			{
-				rows.map((col: null, rowIndex: number) =>
+				rows.map((row: Array<FigurePosition>, rowIndex: number) =>
 					<Stack direction="row" key={rowIndex}>
 						{
-							cols.map((row: null, colIndex: number) => <Square rowIndex={rowIndex} key={colIndex} />)
+							row.map((data: FigurePosition, colIndex: number) => <Square data={data} rowIndex={rowIndex} key={colIndex} />)
 						}
 					</Stack>)
 			}
