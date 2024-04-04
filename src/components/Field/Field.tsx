@@ -1,6 +1,6 @@
 import React from 'react';
 import { Square } from '../Square';
-import { Stack } from '@mui/material';
+import { Box, Container, Stack } from '@mui/material';
 
 export type FieldProps = {
 
@@ -12,7 +12,7 @@ const Field: React.FC<FieldProps> = ({ }) => {
 	const cols = rows;
 
 	return (
-		<Stack>
+		<Box sx={{ width: 'fit-content', margin: '0 auto' }}>
 			{
 				rows.map((col: null, rowIndex: number) =>
 					<Stack direction="row" key={rowIndex}>
@@ -21,7 +21,7 @@ const Field: React.FC<FieldProps> = ({ }) => {
 						}
 					</Stack>)
 			}
-		</Stack>
+		</Box>
 	);
 };
 

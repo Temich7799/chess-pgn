@@ -1,6 +1,7 @@
-import { Container, ThemeProvider, createMuiTheme } from '@mui/material';
+import { Container, Grid, ThemeProvider, createMuiTheme } from '@mui/material';
 import React from 'react';
 import { Field } from '../Field';
+import { Sidebar } from '../Sidebar';
 
 export type AppProps = {
 
@@ -19,7 +20,14 @@ const App: React.FC<AppProps> = ({ }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<Container>
-				<Field />
+				<Grid container spacing={2} sx={{ 'justify-content': 'center' }}>
+					<Grid item xs="auto">
+						<Field />
+					</Grid>
+					<Grid item xs={4}>
+						<Sidebar />
+					</Grid>
+				</Grid>
 			</Container>
 		</ThemeProvider>
 	);
