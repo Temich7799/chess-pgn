@@ -16,7 +16,7 @@ export default function getInitialMap(): PositionsMap {
         initialMap[0].push({
             figure: figuresBackRow[i],
             position: positions.pop()!,
-            type: 'white'
+            type: 'black'
         });
     }
 
@@ -24,7 +24,7 @@ export default function getInitialMap(): PositionsMap {
         initialMap[1].push({
             figure: figuresFrontRow[i],
             position: positions.pop()!,
-            type: 'white'
+            type: 'black'
         });
     }
 
@@ -40,7 +40,7 @@ export default function getInitialMap(): PositionsMap {
         initialMap[6].push({
             figure: 'P',
             position: positions.pop()!,
-            type: 'black'
+            type: 'white'
         });
     }
 
@@ -48,7 +48,7 @@ export default function getInitialMap(): PositionsMap {
         initialMap[7].push({
             figure: figuresBackRow[i],
             position: positions.pop()!,
-            type: 'black'
+            type: 'white'
         });
     }
 

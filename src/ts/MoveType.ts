@@ -1,6 +1,3 @@
-import { Figure } from "./FigureType";
-import { Position } from "./PositionType";
-
-type Step = [Figure, Position, 'x' | undefined | null];
+import { Step } from "./StepType";
 
 export type Move = [Step, Step];

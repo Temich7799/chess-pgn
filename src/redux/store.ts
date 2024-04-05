@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import figurePositionsMapReducer from './slices/figurePositionsMapSlice';
+import positionsMapReducer from './slices/positionsMapSlice';
 
 export const store = configureStore({
   reducer: {
-    figurePositionsMap: figurePositionsMapReducer,
+    positionsMap: positionsMapReducer,
   },
 });
