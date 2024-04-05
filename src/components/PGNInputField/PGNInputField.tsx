@@ -24,6 +24,7 @@ const PGNInputField: React.FC<PGNInputFieldProps> = ({ isPGNProvided }) => {
 			variant="standard"
 			color={!isPGNProvided ? 'warning' : 'success'}
 			focused
+			// disabled={isPGNProvided}
 			onChange={onChangeHandler}
 		/>
 	);

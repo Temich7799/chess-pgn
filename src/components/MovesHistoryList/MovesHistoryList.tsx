@@ -12,12 +12,10 @@ const MovesHistoryList: React.FC = () => {
 	const dispatch = useDispatch();
 
 	const onClickHandler = (index: number) => {
-		// dispatch(selectMap({ index }));
-		console.log(index)
+		dispatch(selectMap({ index }));
 	}
 
-	console.log(selectedIndex)
-	const checkIsSelected = (index: number) => index === selectedIndex;
+	const checkIsSelected = (index: number) => index === selectedIndex
 
 	return (
 		<Box>
@@ -31,14 +29,21 @@ const MovesHistoryList: React.FC = () => {
 						const [figureWhite, positionWhite, hitWhite] = moveWhite;
 						const [figureBlack, positionBlack, hitBlack] = moveBlack;
 
-						return (<ListItem key={moveIndex}>
+						const isWhiteStepSelected = checkIsSelected(moveIndex + 1 + moveIndex);
+						const isBlackStepSelected = checkIsSelected(moveIndex + 2 + moveIndex);
+
+						const getBackgroundSx = (color: string, show: boolean) => {
+							return show ? { backgroundColor: color } : undefined;
+						}
+
+						return (<ListItem sx={getBackgroundSx('primary.main', isWhiteStepSelected || isBlackStepSelected)} key={moveIndex}>
 							<ListItemText>
 								<Stack direction="row">
 									<ListItemText>{moveIndex + 1}</ListItemText>
-									<ListItemButton color={`${checkIsSelected(moveIndex + 1) && 'yellow'}`} onClick={() => onClickHandler(moveIndex)}>
+									<ListItemButton sx={getBackgroundSx('primary.dark', isWhiteStepSelected)} onClick={() => onClickHandler(moveIndex + 1 + moveIndex)}>
 										{[figureWhite, hitWhite, positionWhite]}
 									</ListItemButton>
-									<ListItemButton color={`${checkIsSelected(moveIndex + 1) && 'yellow'}`} onClick={() => onClickHandler(moveIndex + 1)}>
+									<ListItemButton sx={getBackgroundSx('primary.dark', isBlackStepSelected)} onClick={() => onClickHandler(moveIndex + 2 + moveIndex)}>
 										{[figureBlack, hitBlack, positionBlack]}
 									</ListItemButton>
 								</Stack>

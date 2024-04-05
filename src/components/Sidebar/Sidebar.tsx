@@ -35,7 +35,7 @@ const Sidebar: React.FC = () => {
 	return (
 		<Stack spacing={6}>
 			<PGNInputField isPGNProvided={isPGNProvided} />
-			{/* {isPGNProvided && <MovesHistoryList />} todo */}
+			{isPGNProvided && <MovesHistoryList />}
 			<ButtonGroup disabled={!isPGNProvided} disableElevation variant="contained" sx={{ 'align-self': 'center' }}>
 				<Button onClick={skipPreviousOnClickHandler}><SkipPreviousIcon /></Button>
 				<Button onClick={navigateBeforeOnClickHandler}><NavigateBeforeIcon /></Button>
