@@ -1,56 +1,41 @@
-import { Figure } from '../ts/FigureType';
+import { FieldSquare } from '../ts/FieldSquareType';
+import { Piece } from '../ts/PieceType';
 import { PositionsMap } from '../ts/PositionsMapType';
+import { Position } from '../ts/PositionType';
 import getAllPositions from './getAllPositions';
+import splitArrayToChunks from './splitArrayToChunks';
 
 export default function getInitialMap(): PositionsMap {
 
-    const positions = getAllPositions();
-    const figuresBackRow: Array<Figure> = ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'];
-    const figuresFrontRow: Array<Figure> = ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'];
+    const fieldSquares: Array<Position> = getAllPositions();
+    const figuresBackRow: Array<Piece> = ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'];
+    const figuresFrontRow: Array<Piece> = ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'];
 
-    const initialMap: PositionsMap = [
-        [], [], [], [], [], [], [], []
-    ];
+    const rows: Array<Array<Position>> = splitArrayToChunks(fieldSquares, 8);
 
-    for (let i = 0; i < 8; i++) {
-        initialMap[0].push({
-            figure: figuresBackRow[i],
-            position: positions.pop()!,
-            type: 'black'
-        });
-    }
-
-    for (let i = 0; i < 8; i++) {
-        initialMap[1].push({
-            figure: figuresFrontRow[i],
-            position: positions.pop()!,
-            type: 'black'
-        });
-    }
-
-    for (let i = 2; i < 6; i++) {
-        for (let j = 0; j < 8; j++) {
-            initialMap[i].push({
-                position: positions.pop()!,
-            });
-        }
-    }
-
-    for (let i = 0; i < 8; i++) {
-        initialMap[6].push({
-            figure: 'P',
-            position: positions.pop()!,
-            type: 'white'
-        });
-    }
-
-    for (let i = 0; i < 8; i++) {
-        initialMap[7].push({
-            figure: figuresBackRow[i],
-            position: positions.pop()!,
-            type: 'white'
-        });
-    }
-
-    return initialMap;
+    return rows.map((row, rowIndex: number) =>
+        row.map((squareName: Position, squareIndex: number) =>
+            (rowIndex === 0 || rowIndex === rows.length - 1)
+                ? ({
+                    position: squareName,
+                    figure: {
+                        id: fieldSquares.indexOf(squareName) + 1,
+                        type: figuresBackRow[squareIndex],
+                        color: rowIndex === 0 ? 'black' : 'white',
+                    }
+                })
+                : (rowIndex === 1 || rowIndex === rows.length - 2)
+                    ? ({
+                        position: squareName,
+                        figure: {
+                            id: fieldSquares.indexOf(squareName) + 1,
+                            type: figuresFrontRow[squareIndex],
+                            color: rowIndex === 1 ? 'black' : 'white',
+                        }
+                    })
+                    : ({
+                        position: squareName,
+                    })
+        )
+    ) as PositionsMap;
 }

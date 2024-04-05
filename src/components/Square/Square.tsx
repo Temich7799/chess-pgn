@@ -1,16 +1,18 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Piece from "@chessire/pieces";
-import { FigurePosition } from '../../ts/FigurePositionType';
+import { FieldSquare } from '../../ts/FieldSquareType';
+import { Figure } from '../../ts/FigureType';
 
 export type SquareProps = {
 	rowIndex: number;
-	data: FigurePosition;
+	data: FieldSquare;
 }
 
 const Square: React.FC<SquareProps> = ({ data, rowIndex }) => {
 
-	const { figure: figureType, type: figureColor } = data;
+	const { figure = {} as Figure } = data;
+	const { type: figureType, color: figureColor, id } = figure;
 
 	return (
 		<Box height={65} width={65} sx={{

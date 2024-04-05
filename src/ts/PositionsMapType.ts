@@ -1,3 +1,3 @@
-import { FigurePosition } from "./FigurePositionType";
+import { FieldSquare } from "./FieldSquareType";
 
-export type PositionsMap = [Array<FigurePosition>, Array<FigurePosition>, Array<FigurePosition>, Array<FigurePosition>, Array<FigurePosition>, Array<FigurePosition>, Array<FigurePosition>, Array<FigurePosition>];
+export type PositionsMap = [Array<FieldSquare>, Array<FieldSquare>, Array<FieldSquare>, Array<FieldSquare>, Array<FieldSquare>, Array<FieldSquare>, Array<FieldSquare>, Array<FieldSquare>];

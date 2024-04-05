@@ -3,7 +3,7 @@ import { Square } from '../Square';
 import { Box, Stack } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectSelectedMap } from '../../redux/slices/positionsMapSlice';
-import { FigurePosition } from '../../ts/FigurePositionType';
+import { FieldSquare } from '../../ts/FieldSquareType';
 
 export type FieldProps = {
 
@@ -16,10 +16,10 @@ const Field: React.FC<FieldProps> = ({ }) => {
 	return (
 		<Box sx={{ width: 'fit-content', margin: '0 auto' }}>
 			{
-				rows.map((row: Array<FigurePosition>, rowIndex: number) =>
+				rows.map((row: Array<FieldSquare>, rowIndex: number) =>
 					<Stack direction="row" key={rowIndex}>
 						{
-							row.map((data: FigurePosition, colIndex: number) => <Square data={data} rowIndex={rowIndex} key={colIndex} />)
+							row.map((data: FieldSquare, colIndex: number) => <Square data={data} rowIndex={rowIndex} key={colIndex} />)
 						}
 					</Stack>)
 			}

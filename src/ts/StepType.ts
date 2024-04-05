@@ -1,4 +1,4 @@
-import { Figure } from "./FigureType";
+import { Piece } from "./PieceType";
 import { Position } from "./PositionType";
 
-export type Step = [Figure, Position, boolean | undefined | null];
+export type Step = [Piece, Position, boolean | undefined | null];

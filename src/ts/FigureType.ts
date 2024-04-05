@@ -1,2 +1,7 @@
-//King, Queen, Rook, Bishop, Knight, Pawn
-export type Figure = "K" | "Q" | "R" | "B" | "N" | "P";
+import { Piece } from "./PieceType"
+
+export type Figure = {
+    id: number;
+    type: Piece;
+    color: 'white' | 'black'
+}

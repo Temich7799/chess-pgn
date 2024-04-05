@@ -1,4 +1,4 @@
-import { Figure } from "../ts/FigureType";
+import { Piece } from "../ts/PieceType";
 import { Move } from "../ts/MoveType";
 import { Position } from "../ts/PositionType";
 import { Step } from "../ts/StepType";
@@ -24,7 +24,7 @@ function parseStep(stepString: string): Step {
     const isPawn = stepString.length === 2;
     const makesHit = stepString.length === 4;
 
-    const figureType = isPawn ? 'P' : stepString[0] as Figure;
+    const figureType = isPawn ? 'P' : stepString[0] as Piece;
     const figureNewPosition = stepString.slice(stepString.length - 2, 4) as Position;
 
     return [figureType, figureNewPosition, makesHit];

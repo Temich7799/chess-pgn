@@ -1,4 +1,4 @@
-import { FigurePosition } from "../ts/FigurePositionType";
+import { FieldSquare } from "../ts/FieldSquareType";
 import { PositionsMap } from "../ts/PositionsMapType";
 import { Step } from "../ts/StepType";
 
@@ -8,7 +8,7 @@ export default function getMapsFromSteps(initialMap: PositionsMap, steps: Array<
 
     //     const isWhiteTurn = stepIndex % 2;
 
-    //     return initialMap.map((row: Array<FigurePosition>) => row.map((figurePosition: FigurePosition) => {
+    //     return initialMap.map((row: Array<FieldSquare>) => row.map((figurePosition: FieldSquare) => {
 
     //         const { figure, type, position: figureOldPosition } = figurePosition;
 
@@ -23,7 +23,7 @@ export default function getMapsFromSteps(initialMap: PositionsMap, steps: Array<
     //         else return { figure, type, position: figureOldPosition }
     //     })
     //     ) as PositionsMap
-    // }); todo
+    // });
 
-    return [initialMap];
+    return []
 }

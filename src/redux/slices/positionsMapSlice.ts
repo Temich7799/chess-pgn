@@ -4,7 +4,7 @@ import { store } from '../store';
 import parsePGN from '../../utils/parsePGN';
 import getInitialMap from '../../utils/getInitialMap';
 import { Move } from '../../ts/MoveType';
-import getMapsFromSteps from '../../utils/getMapsFromSteps';
+// import getMapsFromSteps from '../../utils/getMapsFromSteps';
 import getStepsFromMoves from '../../utils/getStepsFromMoves';
 
 type PositionsMapState = {
@@ -37,7 +37,9 @@ const positionsMapSlice = createSlice({
       }
       state.moves = parsePGN(pgn);
       const steps = getStepsFromMoves(state.moves);
-      state.maps = [state.selectedMap, ...getMapsFromSteps(state.selectedMap, steps)];
+      // state.maps = [state.selectedMap, ...getMapsFromSteps(state.selectedMap, steps)];
+      state.maps = [state.selectedMap];
+      console.log(state.maps);
     },
     selectMap: (state, action) => {
       const { index } = action.payload;
