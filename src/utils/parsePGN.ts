@@ -2,6 +2,7 @@ import { Piece } from "../ts/PieceType";
 import { Move } from "../ts/MoveType";
 import { Position } from "../ts/PositionType";
 import { Step } from "../ts/StepType";
+import getAllFigures from "./getAllFigures";
 
 export default function parsePGN(pgn: string): Array<Move> {
 
@@ -21,8 +22,8 @@ export default function parsePGN(pgn: string): Array<Move> {
 
 function parseStep(stepString: string): Step {
 
-    const isPawn = stepString.length === 2;
     const makesHit = stepString.length === 4;
+    const isPawn = (stepString.length === 2) || (makesHit && getAllFigures().indexOf(stepString[0] as Piece) === -1);
 
     const figureType = isPawn ? 'P' : stepString[0] as Piece;
     const figureNewPosition = stepString.slice(stepString.length - 2, 4) as Position;
