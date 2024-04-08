@@ -41,10 +41,10 @@ const MovesHistoryList: React.FC = () => {
 								<Stack direction="row">
 									<ListItemText>{moveIndex + 1}</ListItemText>
 									<ListItemButton sx={getBackgroundSx('primary.dark', isWhiteStepSelected)} onClick={() => onClickHandler(moveIndex + 1 + moveIndex)}>
-										{[figureWhite, hitWhite, positionWhite]}
+										{[figureWhite, hitWhite && <strong style={{ color: 'red' }}>x</strong>, positionWhite]}
 									</ListItemButton>
 									<ListItemButton sx={getBackgroundSx('primary.dark', isBlackStepSelected)} onClick={() => onClickHandler(moveIndex + 2 + moveIndex)}>
-										{[figureBlack, hitBlack, positionBlack]}
+										{[figureBlack, hitBlack && <strong style={{ color: 'red' }}>x</strong>, positionBlack]}
 									</ListItemButton>
 								</Stack>
 							</ListItemText>
@@ -53,7 +53,7 @@ const MovesHistoryList: React.FC = () => {
 					)
 				}
 			</List>
-		</Box>
+		</Box >
 	);
 };
 
