@@ -3,16 +3,14 @@ import styles from './Input.module.scss';
 
 interface DaySelectProps {
     days: number[];
-    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+    onChange: (value: string | number, key: string) => void;
     defaultValue?: number;
 }
 
-const DaySelect: React.FC<DaySelectProps> = (props) => {
-
-    const { days, onChange } = props;
+const DaySelect: React.FC<DaySelectProps> = ({ days, onChange, defaultValue }) => {
 
     return (
-        <select {...props} className={styles.select} onChange={onChange}>
+        <select className={styles.select} onChange={(e) => { onChange(e.target.value, 'day') }} defaultValue={defaultValue}>
             {days.map((day, index) => (
                 <option key={index} value={day}>
                     {day}

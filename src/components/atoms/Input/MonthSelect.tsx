@@ -4,21 +4,14 @@ import { Month } from '@/ts/MonthType';
 
 interface MonthSelectProps {
     months: Month[];
-    onChange: (selectedMonth: Month) => void;
+    onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
     defaultValue?: number;
 }
 
-const MonthSelect: React.FC<MonthSelectProps> = (props) => {
-
-    const { months, onChange } = props;
-
-    const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedMonthIndex = parseInt(e.target.value);
-        onChange(months[selectedMonthIndex - 1]);
-    };
+const MonthSelect: React.FC<MonthSelectProps> = ({ months, onChange, defaultValue }) => {
 
     return (
-        <select {...props} className={styles.select} onChange={handleMonthChange}>
+        <select className={styles.select} onChange={onChange} defaultValue={defaultValue}>
             {months.map((month) => (
                 <option key={month.name} value={month.num}>
                     {month.name}

@@ -63,6 +63,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     },
     ref,
   ): JSX.Element => {
+
     const [valueInput, setValueInput] = useState<string | undefined>(value || defaultValue);
     const inputRef = useRef<HTMLInputElement>(null);
     const inputRefCombine = useCombinedRef(ref, inputRef);

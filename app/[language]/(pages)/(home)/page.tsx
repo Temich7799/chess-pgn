@@ -44,7 +44,7 @@ export const SearchUsersPage: React.FC<PageNextProps> = async ({ searchParams, p
   return (
     <div className={styles.searchUsersPage}>
       <div className={styles.searchblock}>
-        <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentDay={parseInt(`${currentDay}`)} />
+        <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
         {/* {userData && <Table {...userData} />} */}
         <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} />
       </div>
