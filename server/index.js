@@ -9,15 +9,20 @@ const app = express();
 const PORT = process.env.port || 5000;
 
 const connection = mysql.createConnection({
-  port: '3306',
-  user: 'gen_user',
-  host: '109.71.243.64',
-  database: 'default_db',
-  password: '>ni;{0ns7GdXhb',
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
 });
 
-app.use(cors({ origin: '*' }));
-app.use(express.json({ limit: '20mb', extended: true }));
+app.use(cors({
+  origin: '*'
+}));
+app.use(express.json({
+  limit: '20mb',
+  extended: true
+}));
 
 // app.use(express.static(path.join(__dirname, './build')));
 // app.get('/', (req, res) => {
@@ -27,18 +32,26 @@ app.use(express.json({ limit: '20mb', extended: true }));
 app.get('/checkUser', (req, res) => {
   const email = req.query.email;
   if (!email) {
-    return res.status(400).json({ error: 'Email is required' });
+    return res.status(400).json({
+      error: 'Email is required'
+    });
   }
 
   connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
     if (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({
+        error: error.message
+      });
     }
 
     if (results.length > 0) {
-      res.json({ exists: true });
+      res.json({
+        exists: true
+      });
     } else {
-      res.json({ exists: false });
+      res.json({
+        exists: false
+      });
     }
   });
 });
@@ -46,7 +59,9 @@ app.get('/checkUser', (req, res) => {
 app.get('/cities', (req, res) => {
   connection.query('SELECT city FROM users', (error, results) => {
     if (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({
+        error: error.message
+      });
     } else {
       res.json(results);
     }
@@ -54,38 +69,57 @@ app.get('/cities', (req, res) => {
 });
 
 app.get('/getUserData', (req, res) => {
-  const { birthday, city } = req.query;
+  const {
+    birthday,
+    city
+  } = req.query;
   if (!birthday) {
-    return res.status(400).json({ error: 'Birthday is required' });
+    return res.status(400).json({
+      error: 'Birthday is required'
+    });
   }
 
-  const query = city
-    ? 'SELECT * FROM users WHERE birthday = ? AND city = ?'
-    : 'SELECT * FROM users WHERE birthday = ?';
+  const query = city ?
+    'SELECT * FROM users WHERE birthday = ? AND city = ?' :
+    'SELECT * FROM users WHERE birthday = ?';
 
   connection.query(query, [birthday, city], (error, results) => {
     if (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({
+        error: error.message
+      });
     }
 
     if (results.length > 0) {
       res.json(results);
     } else {
-      res.json({ message: 'No user found with the specified criteria' });
+      res.json({
+        message: 'No user found with the specified criteria'
+      });
     }
   });
 });
 
 app.post('/addUser', (req, res) => {
-  const { name, birthday, city, email, language, foreign_language, another_foreign_language } =
-    req.body;
+  const {
+    name,
+    birthday,
+    city,
+    email,
+    language,
+    foreign_language,
+    another_foreign_language
+  } =
+  req.body;
 
   const query =
     'INSERT INTO users (name, birthday, city, email, native_lang, foreign_lang, second_foreign_lang) VALUES (?, ?, ?, ?, ?, ?, ?)';
 
   connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
     if (error) {
-      return res.status(500).json({ error: error.message });
+      return res.status(500).json({
+        error: error.message
+      });
     }
 
     if (results.length > 0) {
