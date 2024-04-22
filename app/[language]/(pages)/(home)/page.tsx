@@ -7,6 +7,7 @@ import { SearchUsersForm } from '@/components/molecules/SearchUsersForm/SearchUs
 import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';
 import UsersTable from '@/components/atoms/Table/UsersTable';
+import NoUsersContent from '@/components/molecules/NoUsersContent';
 
 export const metadata = {
   title: 'Next.js',
@@ -41,10 +42,14 @@ export const SearchUsersPage: React.FC<PageNextProps> = async ({ searchParams, p
     <div className={styles.searchUsersPage}>
       <div className={styles.searchblock}>
         <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
-        {userData && <UsersTable data={userData} t={t} />}
-        <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} />
+        {
+          userData?.length
+            ? <UsersTable data={userData} t={t} />
+            : <NoUsersContent />
+        }
+        <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
       </div>
-    </div>
+    </div >
   );
 }
 
