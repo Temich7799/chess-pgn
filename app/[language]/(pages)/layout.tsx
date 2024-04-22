@@ -6,6 +6,7 @@ import { ReactNode } from "react";
 import { DefaultSearchParams } from "@/ts/DefaultSearchParamsType";
 import { CurrentDateContextProvider } from "@/lib/contexts/CurrentDateContext";
 import { LanguageContextProvider } from "@/lib/contexts/CurrentLanguageContext";
+import CookieConsent from "react-cookie-consent";
 
 type RootLayoutProps = {
   children: ReactNode;
@@ -30,6 +31,7 @@ export default function PageLayout({ children, searchParams = {}, params }: Root
       <LanguageContextProvider value={{ language }}>
         <Provider store={store}>
           {children}
+          <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
         </Provider>
       </LanguageContextProvider>
     </CurrentDateContextProvider>
