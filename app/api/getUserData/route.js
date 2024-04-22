@@ -19,15 +19,9 @@ export async function GET(req, res) {
     const connection = await getConnection();
 
     try {
-        const query = city ? 'SELECT * FROM users WHERE birthday = ? AND city = ?' : 'SELECT * FROM users WHERE birthday = ?';
-        const results = await connection.query(query, [birthday, city]);
-        if (results.length > 0) {
-            return Response.json(results);
-        } else {
-            return Response.json({
-                message: 'No user found with the specified criteria',
-            });
-        }
+        const query = city ? `SELECT * FROM users WHERE birthday = '${birthday}' AND city = '${city}'` : `SELECT * FROM users WHERE birthday = '${birthday}'`;
+        const [results, fields] = await connection.query(query);
+        return Response.json(results);
     } catch (error) {
         res.status = 500;
         return Response.json({

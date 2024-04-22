@@ -6,6 +6,7 @@ import { GetUserResponse } from '@/ts/GetUserResponseType';
 import { SearchUsersForm } from '@/components/molecules/SearchUsersForm/SearchUsersForm';
 import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';
+import UsersTable from '@/components/atoms/Table/UsersTable';
 
 export const metadata = {
   title: 'Next.js',
@@ -28,12 +29,7 @@ export const SearchUsersPage: React.FC<PageNextProps> = async ({ searchParams, p
 
   const userData: GetUserResponse[] | undefined = endpoint && await fetch(endpoint)
     .then((res) => res.json())
-    .then(
-      (res) => {
-        // console.log(res)
-        return res;
-      }
-    )
+    .then((res) => res)
     .catch((error) => {
       console.error(error)
     });
@@ -45,7 +41,7 @@ export const SearchUsersPage: React.FC<PageNextProps> = async ({ searchParams, p
     <div className={styles.searchUsersPage}>
       <div className={styles.searchblock}>
         <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
-        {/* {userData && <Table {...userData} />} */}
+        {userData && <UsersTable data={userData} t={t} />}
         <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} />
       </div>
     </div>
