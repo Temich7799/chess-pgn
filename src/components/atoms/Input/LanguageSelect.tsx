@@ -11,7 +11,7 @@ interface LanguageSelectProps {
 const LanguageSelect: React.FC<LanguageSelectProps> = ({ selectedLanguage = 'none', onChange, defaultValue }) => {
 
     const getMatchedLang = () => languages.find((key) => key.code === selectedLanguage)?.name
-    console.log(getMatchedLang())
+
     return (
         <select className={styles.select} value={selectedLanguage === 'none' ? selectedLanguage : getMatchedLang()} onChange={onChange} >
             <option value="none" disabled>{defaultValue}</option>

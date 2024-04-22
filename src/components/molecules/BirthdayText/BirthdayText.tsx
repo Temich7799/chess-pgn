@@ -1,42 +1,35 @@
-'use client'
-
-//todo server
-
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import React from 'react'
 import { birthdaysRU, birthdaysEN, birthdaysDE } from '../../../lib/json/locales/birthdays'
 import { Text } from '../../atoms/Text/Text';
 import styles from './BirthdayText.module.scss'
 
-type Birthdays = {
-  day: number;
-  month: number;
-  text: string[]
-}
+// type Birthdays = {
+//   day: number;
+//   month: number;
+//   text: string[];
+// }
 
 type BirthdayTextProps = {
   month: string;
   day: string;
+  language: string;
 }
 
-export const BirthdayText: React.FC<BirthdayTextProps> = ({ month, day }) => {
+export const BirthdayText: React.FC<BirthdayTextProps> = ({ month, day, language }) => {
 
-  const { i18n } = useTranslation();
-  const lang = i18n.language;
+  const birthdays = {
+    ru: birthdaysRU.find((birthday) => birthday.day === +day && birthday.month === +month),
+    en: birthdaysEN.find((birthday) => birthday.day === +day && birthday.month === +month),
+    de: birthdaysDE.find((birthday) => birthday.day === +day && birthday.month === +month),
+  }
 
-  const [birthdays, setBirthdays] = useState<Birthdays>();
+  //todo
 
-  useEffect(() => {
-    lang === 'ru' && setBirthdays(birthdaysRU.find((birthday) => birthday.day === +day && birthday.month === +month));
-    lang === 'en' && setBirthdays(birthdaysEN.find((birthday) => birthday.day === +day && birthday.month === +month));
-    lang === 'de' && setBirthdays(birthdaysDE.find((birthday) => birthday.day === +day && birthday.month === +month));
-  }, [lang, day, month])
+  const birthday = birthdays[language];
 
-  return (
+  return birthday && (
     <div>
-      {birthdays && birthdays.text.map((birthday, index) => (
-        <Text tag='p' className={styles.text}>{birthday}</Text>
-      ))}
+      <Text tag='p' className={styles.text}>{birthday.text}</Text>
     </div>
   )
 }

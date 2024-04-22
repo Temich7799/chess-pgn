@@ -11,8 +11,6 @@ interface TableProps<Data extends object> {
 
 const Table = <Data extends object>({ columns, data }: TableProps<Data>) => {
 
-    console.log(data)
-
     const {
         getTableProps,
         getTableBodyProps,

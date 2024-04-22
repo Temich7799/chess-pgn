@@ -3,9 +3,10 @@ import { TFunction } from "i18next";
 
 export default function useTableColumns(columns: object | any, t: TFunction<any, any>) {
     return [
-        { Header: t('email'), accessor: 'email' },
+        // { Header: t('email'), accessor: 'email' }, todo
+        { Header: 'ID', accessor: 'id' },
         { Header: t('name'), accessor: 'name' },
-        { Header: t('birthday'), accessor: 'birthday' },
+        // { Header: t('birthday'), accessor: 'birthday' }, todo
         { Header: t('city'), accessor: 'city' },
         { Header: t('language'), accessor: 'native_lang' },
         { Header: t('foreign'), accessor: 'foreign_lang' },

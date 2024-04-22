@@ -9,7 +9,15 @@ type UsersTableProps = {
 
 const UsersTable = ({ data, t }: UsersTableProps) => {
 
-    const columns = useTableColumns(data, t);
+    const filteredData = data.map((user: any, index) => {
+        const data = user;
+        data.id = index;
+        data.email = undefined;
+        const birthday = undefined;
+        return data;
+    }) //todo
+
+    const columns = useTableColumns(filteredData, t);
 
     return (
         <Table columns={columns} data={data} />
