@@ -1,4 +1,4 @@
-import { CityRespone } from "@/lib/api/types";
+import { CityRespone } from "@/ts/CityResponseType";
 
 export default function getUniqueCities(data: CityRespone[]) {
     return data.filter((city, index) => {

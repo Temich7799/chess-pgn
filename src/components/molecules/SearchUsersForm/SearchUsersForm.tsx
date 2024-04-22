@@ -63,7 +63,7 @@ export const SearchUsersForm: React.FC<SearchUsersFormProps> = ({ currentMonth: 
         <div className={styles.searchUsersForm}>
           <MonthSelect months={months} onChange={handleMonthChange} defaultValue={initialMonthIndex} />
           <DaySelect onChange={onChangeHandler} days={countDates} defaultValue={initialDay} />
-          <Input type="cities" placeholder="cities" label={cityLabel} name="cities" defaultValue={initialCity} onChange={(e) => { onChangeHandler(e.target.value, 'city') }} />
+          <Input type="cities" placeholder="cities" label={cityLabel} name="cities" defaultValue={initialCity} onChange={(e: any) => { onChangeHandler(e.target.value, 'city') }} />
           <Button type="submit">{buttonTitle}</Button>
         </div>
       </form>

@@ -9,8 +9,8 @@ import LanguageSelect from '@/components/atoms/Input/LanguageSelect';
 import { Button } from '@/components/atoms/Button/Button';
 import { useAddUserMutation } from '@/lib/api/Controller';
 import { Month } from '@/ts/MonthType';
-import { useCurrentDateContext } from '@/lib/contexts/CurrentDateContext';
 import { useLanguageContext } from '@/lib/contexts/CurrentLanguageContext';
+import getCurrentDate from '@/utils/getCurrentDate';
 
 export type SignupFormProps = {
 	months: Array<Month>;
@@ -26,7 +26,7 @@ export type SignupFormProps = {
 
 const SignupForm: React.FC<SignupFormProps> = ({ months, placeholdres, buttonTitle }) => {
 
-	const { currentMonthIndex, currentDay } = useCurrentDateContext();
+	const { currentMonthIndex, currentDay } = getCurrentDate();
 	const { language } = useLanguageContext();
 
 	const [formData, setFormData] = useState();
@@ -57,7 +57,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ months, placeholdres, buttonTit
             {errors?.name?.message}
           </Text>
         )} */}
-			<MonthSelect /**className={errors.city ? styles.errors : ''} */ months={months} defaultValue={currentMonthIndex} onChange={handleMonthChange} />
+			<MonthSelect /**className={errors.city ? styles.errors : ''} */ months={months} defaultValue={currentMonthIndex} onChange={handleMonthChange as any} />
 			<DaySelect /**className={errors.city ? styles.errors : ''} */ days={countDates} defaultValue={currentDay} onChange={onChangeHandler} />
 			<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
 			{/* {!!errors.city && (

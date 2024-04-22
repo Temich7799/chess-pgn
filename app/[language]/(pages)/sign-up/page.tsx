@@ -7,7 +7,7 @@ import { PageNextProps } from '@/ts/PageNextPropsType';
 import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';
 
-export const SignUpPage = async ({ params }: PageNextProps) => {
+export default async function SignUpPage({ params }: PageNextProps) {
 
   const { language } = params;
 
@@ -29,5 +29,3 @@ export const SignUpPage = async ({ params }: PageNextProps) => {
     </div>
   );
 }
-
-export default SignUpPage;

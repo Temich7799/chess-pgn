@@ -1,4 +1,10 @@
-export const languages = [
+type Language = {
+  code: string
+  name: string;
+  nativeName: string
+}
+
+export const languages: Array<Language> = [
   { code: 'ab', name: 'Abkhaz', nativeName: 'аҧсуа' },
   { code: 'aa', name: 'Afar', nativeName: 'Afaraf' },
   { code: 'af', name: 'Afrikaans', nativeName: 'Afrikaans' },
@@ -189,4 +195,4 @@ export const languages = [
   { code: 'yi', name: 'Yiddish', nativeName: 'ייִדיש' },
   { code: 'yo', name: 'Yoruba', nativeName: 'Yorùbá' },
   { code: 'za', name: 'Zhuang, Chuang', nativeName: 'Saɯ cueŋƅ, Saw cuengh' },
-].sort((a, b) => a.name - b.name);
+]//.sort((a: Language, b: Language) => a.name - b.name);

@@ -1,11 +1,15 @@
-import { DefaultSearchParams } from "@/ts/DefaultSearchParamsType";
+export default function createQueryString(params: any): string {
 
-export default function createQueryString(params: DefaultSearchParams): string {
     const searchParams = new URLSearchParams();
+
     for (const key in params) {
-        if (params[key]) {
-            searchParams.append(key, params[key]);
+
+        const value = params[key];
+
+        if (value) {
+            searchParams.append(key, value);
         }
     }
+
     return `?${searchParams.toString()}`;
 };

@@ -1,13 +1,11 @@
 import { LanguageSelector } from "@/components/atoms/LanguageSelector/LanguageSelector"
 import '../../src/index.scss';
 import { ReactNode } from "react";
-import { DefaultSearchParams } from "@/ts/DefaultSearchParamsType";
 import { dir } from 'i18next'
 import { languages } from '../i18n/settings'
 
 type RootLayoutProps = {
   children: ReactNode;
-  searchParams: DefaultSearchParams;
   params: {
     language: string
   }

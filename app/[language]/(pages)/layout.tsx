@@ -3,37 +3,26 @@
 import { Provider } from "react-redux";
 import { store } from "@/lib/redux/store";
 import { ReactNode } from "react";
-import { DefaultSearchParams } from "@/ts/DefaultSearchParamsType";
-import { CurrentDateContextProvider } from "@/lib/contexts/CurrentDateContext";
 import { LanguageContextProvider } from "@/lib/contexts/CurrentLanguageContext";
 import CookieConsent from "react-cookie-consent";
 
 type RootLayoutProps = {
   children: ReactNode;
-  searchParams: DefaultSearchParams;
   params: {
     language: string
   }
 }
 
-export default function PageLayout({ children, searchParams = {}, params }: RootLayoutProps) {
-
-  const date = new Date();
+export default function PageLayout({ children, params }: RootLayoutProps) {
 
   const { language } = params;
 
-  const { day: currentDay = `${date.getDate()}`, month: currentMonthIndex = `${date.getMonth() + 1}` } = searchParams;
-
-  const currentDate = { currentDay: parseInt(currentDay), currentMonthIndex: parseInt(currentMonthIndex) }
-
   return (
-    <CurrentDateContextProvider value={currentDate}>
-      <LanguageContextProvider value={{ language }}>
-        <Provider store={store}>
-          {children}
-          <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
-        </Provider>
-      </LanguageContextProvider>
-    </CurrentDateContextProvider>
+    <LanguageContextProvider value={{ language }}>
+      <Provider store={store}>
+        {children}
+        <CookieConsent>This website uses cookies to enhance the user experience.</CookieConsent>
+      </Provider>
+    </LanguageContextProvider>
   )
 }

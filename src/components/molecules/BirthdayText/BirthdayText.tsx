@@ -3,11 +3,11 @@ import { birthdaysRU, birthdaysEN, birthdaysDE } from '../../../lib/json/locales
 import { Text } from '../../atoms/Text/Text';
 import styles from './BirthdayText.module.scss'
 
-// type Birthdays = {
-//   day: number;
-//   month: number;
-//   text: string[];
-// }
+type Birthday = {
+  day: number;
+  month: number;
+  text: string[];
+}
 
 type BirthdayTextProps = {
   month: string;
@@ -17,7 +17,7 @@ type BirthdayTextProps = {
 
 export const BirthdayText: React.FC<BirthdayTextProps> = ({ month, day, language }) => {
 
-  const birthdays = {
+  const birthdays: any = {
     ru: birthdaysRU.find((birthday) => birthday.day === +day && birthday.month === +month),
     en: birthdaysEN.find((birthday) => birthday.day === +day && birthday.month === +month),
     de: birthdaysDE.find((birthday) => birthday.day === +day && birthday.month === +month),
@@ -25,7 +25,7 @@ export const BirthdayText: React.FC<BirthdayTextProps> = ({ month, day, language
 
   //todo
 
-  const birthday = birthdays[language];
+  const birthday = language && birthdays[language];
 
   return birthday && (
     <div>
