@@ -14,8 +14,7 @@ const baseQuery = fetchBaseQuery({
 
 export const Controller = createApi({
   // reducerPath: 'AuthController',
-
-  baseQuery: baseQuery,
+  baseQuery,
   endpoints: (builder) => ({
     getCities: builder.query<CityRespone[], void>({
       query: () => `api/cities`,
@@ -33,6 +32,16 @@ export const Controller = createApi({
         body: userData,
       }),
     }),
+    addFriendship: builder.mutation<void, { userId: string, friendId: string }>({
+      query: ({ userId, friendId }) => ({
+        url: '/addFriendship',
+        method: 'POST',
+        body: { userId, friendId },
+      }),
+    }),
+    getAllFriends: builder.query<GetUserResponse[], string>({
+      query: (userId) => `getAllFriends?userId=${userId}`,
+    }),F
   }),
 });
 
@@ -43,4 +52,6 @@ export const {
   useGetAllUsersQuery,
   useLazyGetAllUsersQuery,
   useGetCitiesQuery,
+  useAddFriendshipMutation,
+  useGetAllFriendsQuery,
 } = Controller;

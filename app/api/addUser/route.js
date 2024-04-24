@@ -6,12 +6,14 @@ export async function POST(req, res) {
 
     const {
         name,
-        birthday,
+        day,
+        month,
         city,
-        email,
         language,
         foreign_language,
         another_foreign_language,
+        email,
+        password
     } = req.body;
 
     const connection = await getConnection();
@@ -23,16 +25,18 @@ export async function POST(req, res) {
             return Response.json('User already exists');
         } else {
 
-            const query = 'INSERT INTO users (name, birthday, city, email, native_lang, foreign_lang, second_foreign_lang) VALUES (?, ?, ?, ?, ?, ?, ?)';
+            const query = 'INSERT INTO users (name, day, month, city, language, foreign, another_foreign, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
             await connection.query(query, [
                 name,
-                birthday,
+                day,
+                month,
                 city,
-                email,
                 language,
                 foreign_language,
                 another_foreign_language,
+                email,
+                password
             ]);
 
             res.status = 200;
