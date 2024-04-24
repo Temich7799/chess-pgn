@@ -1,6 +1,4 @@
 export type PageNextProps = {
-    params: {
-        language: string
-    };
+    params: any;
     searchParams: { [key: string]: string | string[] | undefined };
 }

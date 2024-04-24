@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from './styles.module.scss';
 import { BirthdayText } from '@/components/molecules/BirthdayText/BirthdayText';
 import { PageNextProps } from '@/ts/PageNextPropsType';
 import { GetUserResponse } from '@/ts/GetUserResponseType';
-import { SearchUsersForm } from '@/components/molecules/SearchUsersForm/SearchUsersForm';
+import { SearchUsersForm } from '@/components/organisms/SearchUsersForm/SearchUsersForm';
 import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';
 import UsersTable from '@/components/atoms/Table/UsersTable';
 import NoUsersContent from '@/components/molecules/NoUsersContent';
+import StyledSearchPage from '@/components/molecules/StyledSearchPage/StyledSearchPage';
 
 export const metadata = {
   title: 'Next.js',
@@ -39,16 +39,14 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
   const months = await useMonths(language);
 
   return (
-    <div className={styles.searchUsersPage}>
-      <div className={styles.searchblock}>
-        <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
-        {
-          userData?.length
-            ? <UsersTable data={userData} t={t} />
-            : <NoUsersContent />
-        }
-        <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
-      </div>
-    </div >
+    <StyledSearchPage>
+      <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
+      {
+        userData?.length
+          ? <UsersTable data={userData} t={t} />
+          : <NoUsersContent />
+      }
+      <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
+    </StyledSearchPage>
   );
 }

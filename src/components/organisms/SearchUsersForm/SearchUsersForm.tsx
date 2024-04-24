@@ -10,6 +10,8 @@ import { Month } from '@/ts/MonthType';
 import { Text } from '@/components/atoms/Text/Text';
 import { DefaultSearchParams } from '@/ts/DefaultSearchParamsType';
 import createQueryString from '@/utils/createQueryString';
+import StyledForm from '@/components/molecules/StyledForm/StyledForm';
+import BirthdayInput from '@/components/atoms/BirthdayInput/BirthdayInput';
 
 type SearchUsersFormProps = {
   months: Array<Month>;
@@ -23,7 +25,6 @@ type SearchUsersFormProps = {
 
 export const SearchUsersForm: React.FC<SearchUsersFormProps> = ({ currentMonth: initialMonthIndex = 1, currentDay: initialDay = 1, currentCity: initialCity, title, buttonTitle, cityLabel, months }) => {
 
-  const [{ countDates }, setSelectedMonth] = useState<Month>(months[initialMonthIndex - 1]);
   const [formData, setFormData] = useState<DefaultSearchParams>({
     month: `${initialMonthIndex}`,
     day: `${initialDay}`,
@@ -45,28 +46,18 @@ export const SearchUsersForm: React.FC<SearchUsersFormProps> = ({ currentMonth: 
     window.location.href = window.location.pathname + queryString;
   };
 
-  const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-
-    const selectedMonthIndex = parseInt(e.target.value);
-    const selectedMonth = months[selectedMonthIndex - 1];
-
-    setSelectedMonth(selectedMonth);
-    onChangeHandler(selectedMonthIndex, 'month');
-  };
-
   return (
-    <>
+    <section>
       <div className={styles.search}>
         <Text tag="h1">{title}</Text>
       </div>
-      <form onSubmit={onSubmitHandler}>
-        <div className={styles.searchUsersForm}>
-          <MonthSelect months={months} onChange={handleMonthChange} defaultValue={initialMonthIndex} />
-          <DaySelect onChange={onChangeHandler} days={countDates} defaultValue={initialDay} />
+      <StyledForm>
+        <form onSubmit={onSubmitHandler}>
+          <BirthdayInput months={months} initialMonthIndex={initialMonthIndex} initialDay={initialDay} onChangeHandler={onChangeHandler} />
           <Input type="cities" placeholder="cities" label={cityLabel} name="cities" defaultValue={initialCity} onChange={(e: any) => { onChangeHandler(e.target.value, 'city') }} />
           <Button type="submit">{buttonTitle}</Button>
-        </div>
-      </form>
-    </>
+        </form>
+      </StyledForm>
+    </section>
   );
 };

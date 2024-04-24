@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 // import { emailValidator, baseValidator } from '../../../src/utils/validation';
 import { Text } from '../../../../src/components/atoms/Text/Text';
 // import { useTranslation } from 'react-i18next';
-import SignupForm from '@/components/molecules/SignupForm/SignupForm';
+import SignupForm from '@/components/organisms/SignupForm/SignupForm';
 import { PageNextProps } from '@/ts/PageNextPropsType';
 import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';

@@ -11,6 +11,7 @@ import { useAddUserMutation } from '@/lib/redux/api/Controller';
 import { Month } from '@/ts/MonthType';
 import { useLanguageContext } from '@/contexts/CurrentLanguageContext';
 import getCurrentDate from '@/utils/getCurrentDate';
+import StyledForm from '@/components/molecules/StyledForm/StyledForm';
 
 export type SignupFormProps = {
 	months: Array<Month>;
@@ -50,37 +51,39 @@ const SignupForm: React.FC<SignupFormProps> = ({ months, placeholdres, buttonTit
 	const { namePlaceholder, cityPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
 
 	return (
-		<form onSubmit={onSubmitHandler} className={styles.signupform}>
-			<Input type="label" id="name" placeholder={namePlaceholder} onChange={onChangeHandler} />
-			{/* {!!errors.name && (
+		<StyledForm>
+			<form onSubmit={onSubmitHandler} style={{ flexDirection: 'column' }}>
+				<Input type="label" id="name" placeholder={namePlaceholder} onChange={onChangeHandler} />
+				{/* {!!errors.name && (
           <Text tag="span" size="xs" theme="alert">
             {errors?.name?.message}
           </Text>
         )} */}
-			<MonthSelect /**className={errors.city ? styles.errors : ''} */ months={months} defaultValue={currentMonthIndex} onChange={handleMonthChange as any} />
-			<DaySelect /**className={errors.city ? styles.errors : ''} */ days={countDates} defaultValue={currentDay} onChange={onChangeHandler} />
-			<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
-			{/* {!!errors.city && (
+				<MonthSelect /**className={errors.city ? styles.errors : ''} */ months={months} defaultValue={currentMonthIndex} onChange={handleMonthChange as any} />
+				<DaySelect /**className={errors.city ? styles.errors : ''} */ days={countDates} defaultValue={currentDay} onChange={onChangeHandler} />
+				<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
+				{/* {!!errors.city && (
           <Text tag="span" size="xs" theme="alert">
             {errors?.city?.message}
           </Text>
         )} */}
-			<Input type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
-			{/* {!!errors.email &&  (
+				<Input type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
+				{/* {!!errors.email &&  (
           <Text tag="span" size="xs" theme="alert">
             {errors?.email?.message}
           </Text>
         )} */}
-			<LanguageSelect defaultValue={langPlaceholder} selectedLanguage={language} onChange={onChangeHandler} />
-			{/* {!!errors.language && (
+				<LanguageSelect defaultValue={langPlaceholder} selectedLanguage={language} onChange={onChangeHandler} />
+				{/* {!!errors.language && (
           <Text tag="span" size="xs" theme="alert">
             {errors?.language?.message}
           </Text>
         )} */}
-			<LanguageSelect defaultValue={secondLangPlaceholder} selectedLanguage="none" onChange={onChangeHandler} />
-			<LanguageSelect defaultValue={thirdLangPlaceholder} selectedLanguage="none" onChange={onChangeHandler} />
-			<Button type='submit' className={styles.submitBtn}>{buttonTitle}</Button>
-		</form >
+				<LanguageSelect defaultValue={secondLangPlaceholder} selectedLanguage="none" onChange={onChangeHandler} />
+				<LanguageSelect defaultValue={thirdLangPlaceholder} selectedLanguage="none" onChange={onChangeHandler} />
+				<Button type='submit' className={styles.submitBtn}>{buttonTitle}</Button>
+			</form >
+		</StyledForm>
 	);
 };
 
