@@ -3,7 +3,7 @@
 import { Provider } from "react-redux";
 import { store } from "@/lib/redux/store";
 import { ReactNode } from "react";
-import { LanguageContextProvider } from "@/lib/contexts/CurrentLanguageContext";
+import { LanguageContextProvider } from "@/contexts/CurrentLanguageContext";
 import CookieConsent from "react-cookie-consent";
 
 type RootLayoutProps = {
