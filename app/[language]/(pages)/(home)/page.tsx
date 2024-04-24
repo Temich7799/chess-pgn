@@ -24,7 +24,7 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
 
   let endpoint = null;
 
-  if (currentMonthIndex && currentDay) endpoint = process.env.NEXT_API_BASE_URL + `getUserData?birthday=${`${currentDay}/${currentMonthIndex}`}`;
+  if (currentMonthIndex && currentDay) endpoint = process.env.NEXT_API_BASE_URL + `getAllUsers?birthday=${`${currentDay}/${currentMonthIndex}`}`;
 
   if (city) endpoint += `&city=${city}`;
 

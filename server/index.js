@@ -68,7 +68,7 @@ app.get('/cities', (req, res) => {
   });
 });
 
-app.get('/getUserData', (req, res) => {
+app.get('/getAllUsers', (req, res) => {
   const {
     birthday,
     city

@@ -23,8 +23,8 @@ export const Controller = createApi({
     checkUser: builder.query({
       query: (email) => `checkUser?email=${email}`,
     }),
-    getUserData: builder.query<GetUserResponse[], GetUserQuery>({
-      query: ({ birthday, city }) => `getUserData?birthday=${birthday}&city=${city}`,
+    getAllUsers: builder.query<GetUserResponse[], GetUserQuery>({
+      query: ({ birthday, city }) => `getAllUsers?birthday=${birthday}&city=${city}`,
     }),
     addUser: builder.mutation({
       query: (userData) => ({
@@ -40,7 +40,7 @@ export const {
   useAddUserMutation,
   useLazyCheckUserQuery,
   useCheckUserQuery,
-  useGetUserDataQuery,
-  useLazyGetUserDataQuery,
+  useGetAllUsersQuery,
+  useLazyGetAllUsersQuery,
   useGetCitiesQuery,
 } = Controller;
