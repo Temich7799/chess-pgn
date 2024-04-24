@@ -27,22 +27,33 @@ export async function POST(req, res) {
 
             const query = 'INSERT INTO users (name, day, month, city, language, foreign, another_foreign, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-            await connection.query(query, [
-                name,
-                day,
-                month,
-                city,
-                language,
-                foreign_language,
-                another_foreign_language,
-                email,
-                password
-            ]);
+            connection.query(query, [
+                    name,
+                    day,
+                    month,
+                    city,
+                    language,
+                    foreign_language,
+                    another_foreign_language,
+                    email,
+                    password
+                ])
+                .then((result) => {
 
-            res.status = 200;
+                    res.status = 200;
 
-            return Response.json('User added successfully');
+                    return Response.json({
+                        data: {
+                            userId: result.userId,
+                        },
+                        status: 'User added successfully'
+                    });
+                })
+                .catch((error) => {
+                    throw new Error(error);
+                })
         }
+
     } catch (error) {
         console.error('Error adding user: ' + error.stack);
         res.status = 500;

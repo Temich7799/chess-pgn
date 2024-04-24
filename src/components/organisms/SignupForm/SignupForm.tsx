@@ -7,7 +7,7 @@ import DaySelect from '@/components/atoms/Input/DaySelect';
 import MonthSelect from '@/components/atoms/Input/MonthSelect';
 import LanguageSelect from '@/components/atoms/Input/LanguageSelect';
 import { Button } from '@/components/atoms/Button/Button';
-import { useAddUserMutation } from '@/lib/redux/api/Controller';
+import { useAddUserMutation } from '@/lib/redux/api/userApi';
 import { Month } from '@/ts/MonthType';
 import { useLanguageContext } from '@/contexts/CurrentLanguageContext';
 import getCurrentDate from '@/utils/getCurrentDate';

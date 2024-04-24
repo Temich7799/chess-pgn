@@ -18,5 +18,5 @@ export async function GET(req, res) {
     //     connection.end();
     // }
 
-    return Response.json({});
+    return Response.json('Not implemented');
 }
