@@ -1,8 +1,8 @@
-import { GetUserResponse } from "@/ts/GetUserResponseType";
+import { User } from "@/ts/UserType";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
 
-export const FriendshipApi = createApi({
+export const friendshipApi = createApi({
     baseQuery,
     endpoints: (builder) => ({
         addFriendship: builder.mutation<void, { userId: string, friendId: string }>({
@@ -12,8 +12,13 @@ export const FriendshipApi = createApi({
                 body: { userId, friendId },
             }),
         }),
-        getAllFriends: builder.query<GetUserResponse[], string>({
+        getAllFriends: builder.query<User[], string>({
             query: (userId) => `getAllFriends?userId=${userId}`,
         }),
     }),
 });
+
+export const {
+    useAddFriendshipMutation,
+    useGetAllFriendsQuery,
+} = friendshipApi;

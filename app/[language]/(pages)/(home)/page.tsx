@@ -1,13 +1,13 @@
 import React from 'react';
 import { BirthdayText } from '@/components/molecules/BirthdayText/BirthdayText';
 import { PageNextProps } from '@/ts/PageNextPropsType';
-import { GetUserResponse } from '@/ts/GetUserResponseType';
+import { User } from '@/ts/UserType';
 import { SearchUsersForm } from '@/components/organisms/SearchUsersForm/SearchUsersForm';
 import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';
-import UsersTable from '@/components/atoms/Table/UsersTable';
-import NoUsersContent from '@/components/molecules/NoUsersContent';
+import UsersTable from '@/components/organisms/UsersTable/UsersTable';
 import StyledSearchPage from '@/components/molecules/StyledSearchPage/StyledSearchPage';
+import NoUsersWrapper from '@/components/molecules/NoUsersWrapper/NoUsersWrapper';
 
 export const metadata = {
   title: 'Next.js',
@@ -28,7 +28,7 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
 
   if (city) endpoint += `&city=${city}`;
 
-  const userData: GetUserResponse[] | undefined = endpoint && await fetch(endpoint)
+  const usersData: User[] | undefined = endpoint && await fetch(endpoint)
     .then((res) => res.json())
     .then((res) => res)
     .catch((error) => {
@@ -41,11 +41,9 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
   return (
     <StyledSearchPage>
       <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
-      {
-        userData?.length
-          ? <UsersTable data={userData} t={t} />
-          : <NoUsersContent />
-      }
+      <NoUsersWrapper usersData={usersData as User[]}>
+        <UsersTable data={usersData as User[]} t={t} exclude={['month', 'day', 'note']} />
+      </NoUsersWrapper>
       <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
     </StyledSearchPage>
   );

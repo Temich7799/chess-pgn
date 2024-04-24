@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import styles from './SearchUsersForm.module.scss';
 import { Input } from '../../atoms/Input';
 import { Button } from '../../atoms/Button/Button';
-import MonthSelect from '@/components/atoms/Input/MonthSelect';
-import DaySelect from '@/components/atoms/Input/DaySelect';
 import { Month } from '@/ts/MonthType';
 import { Text } from '@/components/atoms/Text/Text';
 import { DefaultSearchParams } from '@/ts/DefaultSearchParamsType';

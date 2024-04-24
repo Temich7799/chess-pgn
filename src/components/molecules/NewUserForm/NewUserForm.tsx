@@ -1,10 +1,8 @@
 'use client'
 
 import React, { useState } from 'react';
-import styles from './SignupForm.module.scss';
+import styles from './NewUserForm.module.scss';
 import { Input } from '@/components/atoms/Input';
-import DaySelect from '@/components/atoms/Input/DaySelect';
-import MonthSelect from '@/components/atoms/Input/MonthSelect';
 import LanguageSelect from '@/components/atoms/Input/LanguageSelect';
 import { Button } from '@/components/atoms/Button/Button';
 import { useAddUserMutation } from '@/lib/redux/api/userApi';
@@ -12,8 +10,9 @@ import { Month } from '@/ts/MonthType';
 import { useLanguageContext } from '@/contexts/CurrentLanguageContext';
 import getCurrentDate from '@/utils/getCurrentDate';
 import StyledForm from '@/components/molecules/StyledForm/StyledForm';
+import BirthdayInput from '@/components/atoms/BirthdayInput/BirthdayInput';
 
-export type SignupFormProps = {
+export type NewUserFormProps = {
 	months: Array<Month>;
 	placeholdres: {
 		namePlaceholder: string;
@@ -23,15 +22,15 @@ export type SignupFormProps = {
 		thirdLangPlaceholder: string;
 	}
 	buttonTitle: string;
+	type?: 'user' | 'friend'
 }
 
-const SignupForm: React.FC<SignupFormProps> = ({ months, placeholdres, buttonTitle }) => {
+const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonTitle, type = 'user' }) => {
 
 	const { currentMonthIndex, currentDay } = getCurrentDate();
 	const { language } = useLanguageContext();
 
 	const [formData, setFormData] = useState();
-	const [{ countDates }, setSelectedMonth] = useState<Month>(months[0]);
 
 	const [addUser, { isLoading, isError }] = useAddUserMutation();
 
@@ -44,41 +43,16 @@ const SignupForm: React.FC<SignupFormProps> = ({ months, placeholdres, buttonTit
 
 	}
 
-	const handleMonthChange = (selectedMonth: Month) => {
-		setSelectedMonth(selectedMonth);
-	};
-
 	const { namePlaceholder, cityPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
 
 	return (
 		<StyledForm>
 			<form onSubmit={onSubmitHandler} style={{ flexDirection: 'column' }}>
 				<Input type="label" id="name" placeholder={namePlaceholder} onChange={onChangeHandler} />
-				{/* {!!errors.name && (
-          <Text tag="span" size="xs" theme="alert">
-            {errors?.name?.message}
-          </Text>
-        )} */}
-				<MonthSelect /**className={errors.city ? styles.errors : ''} */ months={months} defaultValue={currentMonthIndex} onChange={handleMonthChange as any} />
-				<DaySelect /**className={errors.city ? styles.errors : ''} */ days={countDates} defaultValue={currentDay} onChange={onChangeHandler} />
+				<BirthdayInput months={months} initialMonthIndex={currentMonthIndex} initialDay={currentDay} onChangeHandler={(value, key) => { }} />
 				<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
-				{/* {!!errors.city && (
-          <Text tag="span" size="xs" theme="alert">
-            {errors?.city?.message}
-          </Text>
-        )} */}
 				<Input type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
-				{/* {!!errors.email &&  (
-          <Text tag="span" size="xs" theme="alert">
-            {errors?.email?.message}
-          </Text>
-        )} */}
 				<LanguageSelect defaultValue={langPlaceholder} selectedLanguage={language} onChange={onChangeHandler} />
-				{/* {!!errors.language && (
-          <Text tag="span" size="xs" theme="alert">
-            {errors?.language?.message}
-          </Text>
-        )} */}
 				<LanguageSelect defaultValue={secondLangPlaceholder} selectedLanguage="none" onChange={onChangeHandler} />
 				<LanguageSelect defaultValue={thirdLangPlaceholder} selectedLanguage="none" onChange={onChangeHandler} />
 				<Button type='submit' className={styles.submitBtn}>{buttonTitle}</Button>
@@ -87,4 +61,4 @@ const SignupForm: React.FC<SignupFormProps> = ({ months, placeholdres, buttonTit
 	);
 };
 
-export default SignupForm;
+export default NewUserForm;

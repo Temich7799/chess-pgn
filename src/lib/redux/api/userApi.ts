@@ -1,12 +1,12 @@
 import { GetUserQuery } from '@/ts/GetUserQueryType';
-import { GetUserResponse } from '@/ts/GetUserResponseType';
+import { User } from '@/ts/UserType';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQuery } from './baseQuery';
 
 export const userApi = createApi({
   baseQuery,
   endpoints: (builder) => ({
-    getAllUsers: builder.query<GetUserResponse[], GetUserQuery>({
+    getAllUsers: builder.query<User[], GetUserQuery>({
       query: ({ birthday, city }) => `getAllUsers?birthday=${birthday}&city=${city}`,
     }),
     addUser: builder.mutation({

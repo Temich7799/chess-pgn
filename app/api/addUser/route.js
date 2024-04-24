@@ -10,8 +10,8 @@ export async function POST(req, res) {
         month,
         city,
         language,
-        foreign_language,
-        another_foreign_language,
+        foreignuage,
+        another_foreignuage,
         email,
         password
     } = req.body;
@@ -33,8 +33,8 @@ export async function POST(req, res) {
                     month,
                     city,
                     language,
-                    foreign_language,
-                    another_foreign_language,
+                    foreignuage,
+                    another_foreignuage,
                     email,
                     password
                 ])

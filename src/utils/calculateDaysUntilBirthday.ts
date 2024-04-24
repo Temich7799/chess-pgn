@@ -1,8 +1,11 @@
-export default function calculateDaysUntilBirthday(birthday: string) {
+export default function calculateDaysUntilBirthday(birthday: string, currentMonth: number = new Date().getMonth() + 1) {
     const today = new Date();
     const [day, month] = birthday.split('/').map(Number);
-    console.log(day, month)
-    const nextBirthday = new Date(today.getFullYear(), month - 1, day);
+    let nextBirthdayYear = today.getFullYear();
+    if (month < currentMonth || (month === currentMonth && day < today.getDate())) {
+        nextBirthdayYear++;
+    }
+    const nextBirthday = new Date(nextBirthdayYear, month - 1, day);
     const diff = nextBirthday.getTime() - today.getTime();
     return Math.ceil(diff / (1000 * 60 * 60 * 24));
 };

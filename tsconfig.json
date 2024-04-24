@@ -21,6 +21,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/db.js", "app/api/checkUser/route.js", "src/lib/json/languages.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/lib/db.js", "app/api/checkUser/route.js", "src/lib/json/languages.js", "src/lib/redux/store.js"],
   "exclude": ["node_modules"]
 }

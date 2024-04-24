@@ -1,4 +1,7 @@
 import {
+    UserModel
+} from '@/lib/Models/UserModel';
+import {
     getConnection
 } from '../../../src/lib/db';
 
@@ -19,7 +22,15 @@ export async function GET(req, res) {
     const connection = await getConnection();
 
     try {
-        const query = city ? `SELECT * FROM users WHERE birthday = '${birthday}' AND city = '${city}'` : `SELECT * FROM users WHERE birthday = '${birthday}'`;
+
+        const fieldsToExclude = ['email', 'password, note'];
+
+        const fieldsToSelect = Object.keys(UserModel.fields)
+            .filter(field => !fieldsToExclude.includes(field))
+            .join(', ');
+
+        const query = city ? `SELECT ${fieldsToSelect} FROM users WHERE birthday = '${birthday}' AND city = '${city}'` : `SELECT ${fieldsToSelect} FROM users WHERE birthday = '${birthday}'`;
+
         const [results, fields] = await connection.query(query);
         return Response.json(results);
     } catch (error) {
