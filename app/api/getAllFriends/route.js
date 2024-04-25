@@ -33,6 +33,7 @@ export async function POST(req, res) {
             FROM users p
             INNER JOIN friendships f ON p.id = f.friend_id
             WHERE f.id = ?
+            ORDER BY p.name
         `;
 
         const [results, fields] = await connection.query(query, [userId]);
