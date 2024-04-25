@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import BlogForm from "../BlogForm/BlogForm";
+import BlogForm from "../../organisms/BlogForm/BlogForm";
 import { Month } from "@/ts/MonthType";
 import calculateDaysUntilBirthday from "@/utils/calculateDaysUntilBirthday";
 
@@ -22,7 +22,7 @@ const BlogContent: React.FC<BlogContentProps> = ({ months, initialDay, initialMo
 
     return (
         <section>
-            <BlogForm setBirthday={setBirthday} months={months} initialDay={initialDay as number} initialMonthIndex={initialMonthIndex as number} />
+            <BlogForm onBirthdayChange={setBirthday} months={months} initialDay={initialDay as number} initialMonthIndex={initialMonthIndex as number} />
             {
                 daysUntilBirthday && (
                     daysUntilBirthday >= 0 &&

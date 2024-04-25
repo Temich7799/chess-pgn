@@ -2,7 +2,7 @@ import { Text } from '@/components/atoms/Text/Text';
 import StyledSearchPage from '@/components/molecules/StyledSearchPage/StyledSearchPage';
 import { PageNextProps } from '@/ts/PageNextPropsType';
 import useMonths from '@/hooks/useMonths';
-import BlogContent from '@/components/organisms/BlogContent/BlogContent';
+import BlogContent from '@/components/molecules/BlogContent/BlogContent';
 import UsersTable from '@/components/organisms/UsersTable/UsersTable';
 import { useTranslation } from '../../../../i18n';
 import { User } from '@/ts/UserType';

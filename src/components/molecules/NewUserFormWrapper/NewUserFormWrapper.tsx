@@ -2,7 +2,7 @@ import styles from './NewUserFormWrapper.module.scss';
 import { Text } from "@/components/atoms/Text/Text";
 import { useTranslation } from "../../../../app/i18n";
 import useMonths from "@/hooks/useMonths";
-import NewUserForm from "@/components/molecules/NewUserForm/NewUserForm";
+import NewUserForm from "@/components/organisms/NewUserForm/NewUserForm";
 
 const NewUserFormWrapper: React.FC<{ title?: string, language: string, type?: 'user' | 'friend' }> = async ({ title, language, type }) => {
 
