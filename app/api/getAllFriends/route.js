@@ -11,6 +11,11 @@ export async function POST(req, res) {
         userId
     } = req.body;
 
+    if (!userId) {
+        res.status = 400;
+        return Response.json('userId is required');
+    }
+
     const connection = await getConnection();
 
     try {

@@ -10,32 +10,46 @@ export async function POST(req, res) {
         month,
         city,
         language,
-        foreignuage,
-        another_foreignuage,
+        foreign,
+        another_foreign,
         email,
+        note,
         password
     } = req.body;
+
+    if (!name && !day && !month && !city && !language && !foreign && !another_foreign && !email && !note && !password) {
+        res.status = 400;
+        return Response.json('All fields are empty');
+    }
+
+    if (!day || !month) {
+        res.status = 400;
+        return Response.json('Day and month are required');
+    }
 
     const connection = await getConnection();
 
     try {
-        const results = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
+
+        const [results] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
+
         if (results.length > 0) {
             res.status = 400;
             return Response.json('User already exists');
         } else {
 
-            const query = 'INSERT INTO users (name, day, month, city, language, foreign, another_foreign, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            const query = 'INSERT INTO users (name, day, month, city, `language`, `foreign`, another_foreign, email, note, `password`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-            connection.query(query, [
+            return connection.query(query, [
                     name,
                     day,
                     month,
                     city,
                     language,
-                    foreignuage,
-                    another_foreignuage,
+                    foreign,
+                    another_foreign,
                     email,
+                    note,
                     password
                 ])
                 .then((result) => {
@@ -50,7 +64,9 @@ export async function POST(req, res) {
                     });
                 })
                 .catch((error) => {
-                    throw new Error(error);
+                    res.status = 500;
+                    console.error(error);
+                    return Response.json('Error adding user');
                 })
         }
 

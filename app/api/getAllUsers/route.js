@@ -36,7 +36,7 @@ export async function GET(req, res) {
         const query = city ? `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month} AND city = '${city}'` : `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month}`;
 
         const [results, fields] = await connection.query(query);
-        console.log(results)
+
         return Response.json(results);
     } catch (error) {
         res.status = 500;
