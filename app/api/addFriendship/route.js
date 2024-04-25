@@ -28,7 +28,7 @@ export async function POST(req, res) {
             return Response.json('One or both users do not exist');
         }
 
-        await connection.query('INSERT INTO friendships (id, friend_id) VALUES (?, ?)', [userId, friendId]);
+        await connection.query('INSERT INTO friendships (user_id, friend_id) VALUES (?, ?)', [userId, friendId]);
 
         res.status = 200;
         Response.json('Friend added successfully');
