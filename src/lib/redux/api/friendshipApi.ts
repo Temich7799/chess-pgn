@@ -7,13 +7,13 @@ export const friendshipApi = createApi({
     endpoints: (builder) => ({
         addFriendship: builder.mutation<void, { userId: string, friendId: string }>({
             query: ({ userId, friendId }) => ({
-                url: '/addFriendship',
+                url: '/api/addFriendship',
                 method: 'POST',
                 body: { userId, friendId },
             }),
         }),
         getAllFriends: builder.query<User[], string>({
-            query: (userId) => `getAllFriends?userId=${userId}`,
+            query: (userId) => `/api/getAllFriends?userId=${userId}`,
         }),
     }),
 });

@@ -6,7 +6,7 @@ export const cityApi = createApi({
     baseQuery,
     endpoints: (builder) => ({
         getAllCities: builder.query<CityRespone[], void>({
-            query: () => `api/cities`,
+            query: () => `/api/cities`,
         }),
     }),
 });

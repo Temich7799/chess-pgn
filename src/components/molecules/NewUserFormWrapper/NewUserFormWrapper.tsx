@@ -4,7 +4,7 @@ import { useTranslation } from "../../../../app/i18n";
 import useMonths from "@/hooks/useMonths";
 import NewUserForm from "@/components/organisms/NewUserForm/NewUserForm";
 
-const NewUserFormWrapper: React.FC<{ title?: string, language: string, type?: 'user' | 'friend' }> = async ({ title, language, type }) => {
+const NewUserFormWrapper: React.FC<{ title?: string, language: string, type?: 'user' | 'friend', userId?: string }> = async ({ title, language, type, userId }) => {
 
     const { t } = await useTranslation(language);
     const months = await useMonths(language);
@@ -20,7 +20,7 @@ const NewUserFormWrapper: React.FC<{ title?: string, language: string, type?: 'u
     return (
         <div className={styles.signup}>
             {title && <Text tag="h1">{title}</Text>}
-            <NewUserForm months={months} placeholdres={formPlaceholdres} buttonTitle={t('submit')} type={type} />
+            <NewUserForm months={months} placeholdres={formPlaceholdres} buttonTitle={t('submit')} type={type} userId={userId} />
         </div>
     )
 }

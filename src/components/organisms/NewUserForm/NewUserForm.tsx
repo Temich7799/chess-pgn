@@ -43,20 +43,20 @@ const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonT
 	});
 	const [friendId, setFriendId] = useState<string>();
 
-	const [addUser, { isLoading: isUserProcessing, isError: isUserError, isSuccess: isUserSuccess }] = useAddUserMutation();
+	const [addUser, { data, isLoading: isUserProcessing, isError: isUserError, isSuccess: isUserSuccess }] = useAddUserMutation();
 	const [addFriendsip, { isLoading: isFriendshipProccessing, isError: isFriendshopError, isSuccess: isFriendshipSuccess }] = useAddFriendshipMutation();
 
 	const isLoading = isUserProcessing || isFriendshipProccessing;
 	const isError = isUserError || isFriendshopError;
 	const isSuccess = isUserSuccess || isFriendshipSuccess;
 
-	const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+	const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
 
 		e.preventDefault();
 
-		addUser(formData).then((data: any) => {
-			type === 'friend' && setFriendId(data.id);
-		});
+		await addUser(formData);
+
+		(type === 'friend' && data) && data.data && setFriendId(data.data.userId);
 	};
 
 	const onChangeHandler = ({ target }: any) => {
@@ -69,10 +69,8 @@ const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonT
 		setFormData({ ...formData, [key]: value })
 	}, [formData]);
 
-	useEffect(() => { console.log(formData) }, [formData])
-
 	useEffect(() => {
-		if (userId && type === 'friend') {
+		if (userId && type === 'friend' && friendId) {
 			(isUserSuccess && friendId) && addFriendsip({ userId, friendId });
 		}
 	}, [friendId]);

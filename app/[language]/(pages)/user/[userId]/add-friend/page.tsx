@@ -4,9 +4,9 @@ import NewUserFormWrapper from '@/components/molecules/NewUserFormWrapper/NewUse
 
 export default async function NewFriendPage({ params }: PageNextProps) {
 
-  const { language } = params;
+  const { language, userId = '' } = params;
 
   return (
-    <NewUserFormWrapper title="Add a friend" language={language} type="friend" />
+    <NewUserFormWrapper title="Add a friend" language={language} type="friend" userId={userId} />
   );
 }

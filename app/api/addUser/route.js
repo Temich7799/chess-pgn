@@ -54,13 +54,11 @@ export async function POST(req, res) {
                     note,
                     password
                 ])
-                .then((result) => {
-
+                .then(([result]) => {
                     res.status = 200;
-
                     return Response.json({
                         data: {
-                            userId: result.userId,
+                            userId: result.insertId,
                         },
                         status: 'User added successfully'
                     });
