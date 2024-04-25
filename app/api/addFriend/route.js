@@ -4,10 +4,12 @@ import {
 
 export async function POST(req, res) {
 
+    const data = await req.json();
+
     const {
         userId,
         friendId
-    } = req.body;
+    } = data;
 
     if (userId === friendId) {
         res.status(400).json('User and friend cannot be the same');

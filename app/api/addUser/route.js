@@ -4,6 +4,8 @@ import {
 
 export async function POST(req, res) {
 
+    const data = await req.json();
+
     const {
         name,
         day,
@@ -15,16 +17,16 @@ export async function POST(req, res) {
         email,
         note,
         password
-    } = req.body;
-
-    if (!name && !day && !month && !city && !language && !foreign && !another_foreign && !email && !note && !password) {
-        res.status = 400;
-        return Response.json('All fields are empty');
-    }
+    } = data;
 
     if (!day || !month) {
         res.status = 400;
         return Response.json('Day and month are required');
+    }
+
+    if (!name && !day && !month && !city && !language && !foreign && !another_foreign && !email && !note && !password) {
+        res.status = 400;
+        return Response.json('All fields are empty');
     }
 
     const connection = await getConnection();
