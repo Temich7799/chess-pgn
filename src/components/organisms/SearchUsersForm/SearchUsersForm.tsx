@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './SearchUsersForm.module.scss';
 import { Input } from '../../atoms/Input';
 import { Button } from '../../atoms/Button/Button';
@@ -29,18 +29,17 @@ export const SearchUsersForm: React.FC<SearchUsersFormProps> = ({ currentMonth: 
     city: initialCity,
   });
 
-  const onChangeHandler = (value: string | number, key: string) => {
+  const onChangeHandler = useCallback((value: string | number, key: string) => {
     setFormData({
       ...formData,
       [key]: value,
     })
-  };
+  }, [formData]);
 
   const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
-
-    const queryString = createQueryString(formData);
+    const queryString = createQueryString({ ...formData, birthday: undefined });
     window.location.href = window.location.pathname + queryString;
   };
 

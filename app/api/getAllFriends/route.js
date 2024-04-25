@@ -15,17 +15,19 @@ export async function POST(req, res) {
 
     try {
 
-        const fieldsToExclude = ['email', 'password', 'language', 'foreign', 'another_foreign'];
+        // const fieldsToExclude = ['email', 'password', 'language', 'foreign', 'another_foreign'];
 
-        const fieldsToSelect = Object.keys(UserModel.fields)
-            .filter(field => !fieldsToExclude.includes(field))
-            .join(', ');
+        // const fieldsToSelect = UserModel.fields
+        //     .filter(field => !fieldsToExclude.includes(field))
+        //     .join(', '); TODO
+
+        const fieldsToSelect = '*';
 
         const query = `
             SELECT ${fieldsToSelect}
             FROM users p
-            INNER JOIN friendships f ON p.user_id = f.friend_id
-            WHERE f.user_id = ?
+            INNER JOIN friendships f ON p.id = f.friend_id
+            WHERE f.id = ?
         `;
 
         const [results, fields] = await connection.query(query, [userId]);

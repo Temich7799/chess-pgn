@@ -12,15 +12,15 @@ export async function POST(req, res) {
 
     try {
 
-        const userExists = await connection.query('SELECT * FROM users WHERE user_id = ?', [userId]);
-        const friendExists = await connection.query('SELECT * FROM users WHERE user_id = ?', [friendId]);
+        const userExists = await connection.query('SELECT * FROM users WHERE id = ?', [userId]);
+        const friendExists = await connection.query('SELECT * FROM users WHERE id = ?', [friendId]);
 
         if (userExists.length === 0 || friendExists.length === 0) {
             res.status(400).json('One or both users do not exist');
             return;
         }
 
-        await connection.query('INSERT INTO friendships (user_id, friend_id) VALUES (?, ?)', [userId, friendId]);
+        await connection.query('INSERT INTO friendships (id, friend_id) VALUES (?, ?)', [userId, friendId]);
 
         res.status(200).json('Friend added successfully');
     } catch (error) {

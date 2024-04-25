@@ -23,15 +23,20 @@ export async function GET(req, res) {
 
     try {
 
-        const fieldsToExclude = ['email', 'password, note'];
+        // const fieldsToExclude = ['email', 'password, note'];
 
-        const fieldsToSelect = Object.keys(UserModel.fields)
-            .filter(field => !fieldsToExclude.includes(field))
-            .join(', ');
+        // const fieldsToSelect = UserModel.fields
+        //     .filter(field => !fieldsToExclude.includes(field))
+        //     .join(', ');  //TODO
 
-        const query = city ? `SELECT ${fieldsToSelect} FROM users WHERE birthday = '${birthday}' AND city = '${city}'` : `SELECT ${fieldsToSelect} FROM users WHERE birthday = '${birthday}'`;
+        const fieldsToSelect = '*';
+
+        const [day, month] = birthday.split('/');
+
+        const query = city ? `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month} AND city = '${city}'` : `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month}`;
 
         const [results, fields] = await connection.query(query);
+        console.log(results)
         return Response.json(results);
     } catch (error) {
         res.status = 500;

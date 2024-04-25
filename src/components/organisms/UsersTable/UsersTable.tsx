@@ -13,14 +13,6 @@ type UsersTableProps = {
 
 const UsersTable = ({ data, t, exclude, additionalColumns = [] }: UsersTableProps) => {
 
-    const filteredData = data.map((user: any, index) => {
-        const data = user;
-        data.id = index;
-        data.email = undefined;
-        const birthday = undefined;
-        return data;
-    }) //todo
-
     const columns = [
         { Header: 'ID', accessor: 'id' },
         { Header: t('month'), accessor: 'month' },
@@ -37,7 +29,7 @@ const UsersTable = ({ data, t, exclude, additionalColumns = [] }: UsersTableProp
     const getFilteredColumns = () => columns.filter((column) => !exclude?.includes(column.accessor))
 
     return (
-        <Table columns={exclude ? getFilteredColumns() : columns} data={filteredData} />
+        <Table columns={exclude ? getFilteredColumns() : columns} data={data} />
     )
 }
 

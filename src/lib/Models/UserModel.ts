@@ -1,6 +1,6 @@
 export const UserModel = {
     fields: [
-        'user_id',
+        'id',
         'name',
         'day',
         'month',

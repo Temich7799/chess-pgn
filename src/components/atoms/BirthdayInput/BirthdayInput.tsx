@@ -14,7 +14,6 @@ type BirthdayInputProps = {
 const BirthdayInput: React.FC<BirthdayInputProps> = ({ onChangeHandler, months, initialMonthIndex, initialDay }) => {
 
     const [selectedMonth, setSelectedMonth] = useState<Month>(months[initialMonthIndex - 1]);
-    const [selectedDay, setSelectedDay] = useState<number | string>(initialDay);
 
     const handleMonthChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 
@@ -22,15 +21,13 @@ const BirthdayInput: React.FC<BirthdayInputProps> = ({ onChangeHandler, months, 
         const selectedMonth = months[selectedMonthIndex - 1];
 
         setSelectedMonth(selectedMonth);
+
+        onChangeHandler(selectedMonth.num, 'month');
     };
 
     const handleDayChange = (value: string | number, key: string) => {
-        setSelectedDay(value);
+        onChangeHandler(value, 'day');
     }
-
-    useEffect(() => {
-        onChangeHandler(`${selectedDay}/${selectedMonth.num}`, 'birthday');
-    }, [selectedDay, selectedMonth]);
 
     return (
         <div className={styles.birthdayInput}>
