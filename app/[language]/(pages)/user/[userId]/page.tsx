@@ -21,7 +21,7 @@ const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
 
     const { day: currentDay = date.getDate(), month: currentMonthIndex = date.getMonth() + 1, city } = searchParams;
 
-    const friendsData: User[] | undefined = await fetch(process.env.NEXT_API_BASE_URL + 'getAllFriends', { method: 'POST', body: { userId } })
+    const friendsData: User[] | undefined = await fetch(process.env.NEXT_API_BASE_URL + 'getAllFriends', { method: 'POST', body: { userId } as any })
         .then((res) => res.json())
         .then((res) => res)
         .catch((error) => {

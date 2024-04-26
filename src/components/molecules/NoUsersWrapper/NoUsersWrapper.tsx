@@ -21,7 +21,7 @@ const NoUsersContent: React.FC<{ message?: string }> = ({ message }) => {
     )
 }
 
-const NoUsersWrapper: React.FC<{ children: ReactNode, usersData: Array<any>, message?: string }> = ({ children, usersData, message }) => {
+const NoUsersWrapper: React.FC<{ children: ReactNode, usersData: Array<any>, message?: string }> = ({ children, usersData = [], message }) => {
 
     return usersData.length
         ? children

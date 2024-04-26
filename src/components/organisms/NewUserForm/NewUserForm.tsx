@@ -36,7 +36,7 @@ const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonT
 
 	const router = useRouter();
 
-	const [formData, setFormData] = useState({
+	const [formData, setFormData] = useState<any>({
 		month: `${currentMonthIndex}`,
 		day: `${currentDay}`,
 		language,
@@ -90,7 +90,7 @@ const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonT
 				<Input required type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
 				<LanguageSelect id="language" defaultValue={langPlaceholder} selectedLanguage={formData.language} onChange={onChangeHandler} />
 				<LanguageSelect id="foreign" defaultValue={secondLangPlaceholder} selectedLanguage={formData.foreign} onChange={onChangeHandler} />
-				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign} onChange={onChangeHandler} />
+				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign } onChange={onChangeHandler} />
 				<Button type='submit' disabled={isLoading} className={styles.submitBtn}>{isLoading ? 'Sending..' : buttonTitle}</Button>
 				{isError && <Text tag='p' style={{ color: 'red' }}>Error. Try again</Text>}
 			</form >
