@@ -59,3 +59,17 @@ body {
   margin: 0;
   box-sizing: border-box;
 }
+
+.CookieConsent {
+
+  background-color: rgba(var(--brand-secondary-rgb)) !important;
+
+  button {
+    // background-color: rgba(var(--background-rgb)) !important;
+    font-size: medium;
+    font-weight: 600;
+    font-family: 'Montserrat';
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+}
