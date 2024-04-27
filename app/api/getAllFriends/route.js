@@ -7,9 +7,11 @@ import {
 
 export async function POST(req, res) {
 
+    const data = await req.json();
+
     const {
         userId
-    } = req.body;
+    } = data;
 
     if (!userId) {
         res.status = 400;
