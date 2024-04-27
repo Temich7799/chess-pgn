@@ -19,14 +19,14 @@ const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle 
 
     const [formData, setFormData] = useState<{ email: string; password: string }>({ email: '', password: '' });
 
-    const [login, { isLoading, isError, isSuccess }] = useLoginMutation();
+    const [login, { data, isLoading, isError, isSuccess }] = useLoginMutation();
 
     const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 
         e.preventDefault();
 
         try {
-            const { data } = await login(formData);
+            await login(formData);
             console.log('Login successful', data);
         } catch (error) {
             console.error('Login error:', error);
