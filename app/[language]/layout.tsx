@@ -3,6 +3,7 @@ import '../../src/index.scss';
 import { ReactNode } from "react";
 import { dir } from 'i18next';
 import { languages } from '../i18n/settings';
+import AuthProvider from "@/contexts/providers/AuthProvider";
 
 type RootLayoutProps = {
   children: ReactNode;
@@ -22,8 +23,10 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
   return (
     <html lang={language} dir={dir(language)}>
       <body>
-        {/* <LanguageSelector /> */}
-        {children}
+        <AuthProvider>
+          {/* <LanguageSelector /> */}
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )
