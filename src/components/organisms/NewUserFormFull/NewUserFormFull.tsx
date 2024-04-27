@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react';
-import styles from './NewUserForm.module.scss';
+import styles from './NewUserFormFull.module.scss';
 import { Input } from '@/components/atoms/Input';
 import LanguageSelect from '@/components/atoms/Input/LanguageSelect';
 import { Button } from '@/components/atoms/Button/Button';
@@ -29,7 +29,7 @@ export type NewUserFormProps = {
 	userId?: string;
 }
 
-const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonTitle, type = 'user', userId }) => {
+const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonTitle, type = 'user', userId }) => {
 
 	const { currentMonthIndex, currentDay } = getCurrentDate();
 	const { language } = useLanguageContext();
@@ -90,7 +90,7 @@ const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonT
 				<Input required type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
 				<LanguageSelect id="language" defaultValue={langPlaceholder} selectedLanguage={formData.language} onChange={onChangeHandler} />
 				<LanguageSelect id="foreign" defaultValue={secondLangPlaceholder} selectedLanguage={formData.foreign} onChange={onChangeHandler} />
-				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign } onChange={onChangeHandler} />
+				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign} onChange={onChangeHandler} />
 				<Button type='submit' disabled={isLoading} className={styles.submitBtn}>{isLoading ? 'Sending..' : buttonTitle}</Button>
 				{isError && <Text tag='p' style={{ color: 'red' }}>Error. Try again</Text>}
 			</form >
@@ -98,4 +98,4 @@ const NewUserForm: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonT
 	);
 };
 
-export default NewUserForm;
+export default NewUserFormFull;

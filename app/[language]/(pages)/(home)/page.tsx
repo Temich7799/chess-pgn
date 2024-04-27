@@ -8,6 +8,7 @@ import useMonths from '@/hooks/useMonths';
 import UsersTable from '@/components/organisms/UsersTable/UsersTable';
 import StyledSearchPage from '@/components/molecules/StyledSearchPage/StyledSearchPage';
 import NoUsersWrapper from '@/components/molecules/NoUsersWrapper/NoUsersWrapper';
+import NewUserFormInitial from '@/components/organisms/NewUserFormInitial/NewUserFormInitial';
 
 export const metadata = {
   title: 'Next.js',
@@ -40,11 +41,12 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
 
   return (
     <StyledSearchPage>
-      <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={parseInt(currentMonthIndex as string)} currentCity={city as string} currentDay={parseInt(`${currentDay}`)} />
+      <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={currentMonthIndex as number} currentCity={city as string} currentDay={currentDay as number} />
       <NoUsersWrapper usersData={usersData as User[]}>
         <UsersTable data={usersData as User[]} t={t} exclude={['month', 'day', 'note']} />
       </NoUsersWrapper>
       <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
+      <NewUserFormInitial title="Add a new user" actionPath="/new" months={months} initialMonthIndex={currentMonthIndex as number} initialDay={currentDay as number} />
     </StyledSearchPage>
   );
 }
