@@ -5,15 +5,15 @@ import styles from './NewUserFormFull.module.scss';
 import { Input } from '@/components/atoms/Input';
 import LanguageSelect from '@/components/atoms/Input/LanguageSelect';
 import { Button } from '@/components/atoms/Button/Button';
-import { useAddUserMutation } from '@/lib/redux/api/userApi';
 import { Month } from '@/ts/MonthType';
 import { useLanguageContext } from '@/contexts/CurrentLanguageContext';
 import getCurrentDate from '@/utils/getCurrentDate';
 import StyledForm from '@/components/molecules/StyledForm/StyledForm';
 import BirthdayInput from '@/components/atoms/BirthdayInput/BirthdayInput';
 import { Text } from '@/components/atoms/Text/Text';
-import { useAddFriendshipMutation } from '@/lib/redux/api/friendshipApi';
+import { useAddFriendshipMutation } from '@/lib/redux/api/userApi';
 import { useSearchParams } from 'next/navigation';
+import { useRegisterMutation } from '@/lib/redux/api/authApi';
 
 export type NewUserFormProps = {
 	months: Array<Month>;
@@ -49,18 +49,18 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 
 	const [friendId, setFriendId] = useState<string>();
 
-	const [addUser, { data, isLoading: isUserProcessing, isError: isUserError, isSuccess: isUserSuccess }] = useAddUserMutation();
+	const [register, { data, isLoading: isRegisterProcessing, isError: isRegisterError, isSuccess: isRegisterSuccess }] = useRegisterMutation();
 	const [addFriendsip, { isLoading: isFriendshipProcessing, isError: isFriendshipError, isSuccess: isFriendshipSuccess }] = useAddFriendshipMutation();
 
-	const isLoading = isUserProcessing || isFriendshipProcessing;
-	const isError = isUserError || isFriendshipError;
-	const isSuccess = isUserSuccess || isFriendshipSuccess;
+	const isLoading = isRegisterProcessing || isFriendshipProcessing;
+	const isError = isRegisterError || isFriendshipError;
+	const isSuccess = isRegisterSuccess || isFriendshipSuccess;
 
 	const onSubmitHandler = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await addUser(formData);
+		await register(formData);
 		(type === 'friend' && data?.data) && setFriendId(data.data.userId);
-	}, [addUser, data, formData, type]);
+	}, [ data, formData, type]);
 
 	const onChangeHandler = useCallback(({ target }: any) => {
 		target.id ? setFormData((prevData: any) => ({ ...prevData, [target.id]: target.value })) : console.error('key arg is not specified');
@@ -72,9 +72,9 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 
 	useEffect(() => {
 		if (userId && type === 'friend' && friendId) {
-			(isUserSuccess && friendId) && addFriendsip({ userId, friendId });
+			(isRegisterSuccess && friendId) && addFriendsip({ userId, friendId });
 		}
-	}, [addFriendsip, friendId, isUserSuccess, type, userId]);
+	}, [addFriendsip, friendId, isRegisterSuccess, type, userId]);
 
 	useEffect(() => {
 		// isSuccess && router.back();

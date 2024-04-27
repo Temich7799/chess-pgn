@@ -1,31 +1,30 @@
-import { GetUserQuery } from '@/ts/GetUserQueryType';
-import { User } from '@/ts/UserType';
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQuery } from './baseQuery';
+import { User } from "@/ts/UserType";
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQuery } from "./baseQuery";
+import { GetUserQuery } from "@/ts/GetUserQueryType";
 
 export const userApi = createApi({
-  baseQuery,
-  endpoints: (builder) => ({
-    getAllUsers: builder.query<User[], GetUserQuery>({
-      query: ({ birthday, city }) => `getAllUsers?birthday=${birthday}&city=${city}`,
+    baseQuery,
+    endpoints: (builder) => ({
+        addFriendship: builder.mutation<void, { userId: string, friendId: string }>({
+            query: ({ userId, friendId }) => ({
+                url: '/api/addFriendship',
+                method: 'POST',
+                body: { userId, friendId },
+            }),
+        }),
+        getAllUserFriends: builder.query<User[], string>({
+            query: (userId) => `/api/getAllUserFriends?userId=${userId}`,
+        }),
+        getAllUsers: builder.query<User[], GetUserQuery>({
+            query: ({ birthday, city }) => `/api/getAllUsers?birthday=${birthday}&city=${city}`,
+        }),
     }),
-    addUser: builder.mutation({
-      query: (userData) => ({
-        url: '/api/addUser',
-        method: 'POST',
-        body: userData,
-      }),
-    }),
-    checkUser: builder.query({
-      query: (email) => `checkUser?email=${email}`,
-    }),
-  }),
 });
 
 export const {
-  useAddUserMutation,
-  useLazyCheckUserQuery,
-  useCheckUserQuery,
-  useGetAllUsersQuery,
-  useLazyGetAllUsersQuery,
+    useAddFriendshipMutation,
+    useGetAllUserFriendsQuery,
+    useGetAllUsersQuery,
+    useLazyGetAllUsersQuery,
 } = userApi;
