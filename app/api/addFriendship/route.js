@@ -1,6 +1,6 @@
 import {
     getConnection
-} from '@/src/lib/db';
+} from '../../../src/lib/db';
 
 export async function POST(req, res) {
 

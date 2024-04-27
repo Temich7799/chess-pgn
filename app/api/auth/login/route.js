@@ -1,6 +1,6 @@
 import {
     getConnection
-} from '@/src/lib/db';
+} from '../../../../src/lib/db';
 import bcrypt from 'bcrypt';
 import {
     setCookie

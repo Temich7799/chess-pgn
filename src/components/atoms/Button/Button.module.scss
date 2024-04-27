@@ -10,6 +10,7 @@
   font-family: 'Montserrat';
   cursor: pointer;
   transition: all 0.2s ease;
+  text-wrap: nowrap;
 
   &:hover {
     background: rgba(var(--brand-rgb));
