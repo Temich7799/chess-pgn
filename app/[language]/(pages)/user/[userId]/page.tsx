@@ -11,9 +11,7 @@ import NoUsersWrapper from '@/components/molecules/NoUsersWrapper/NoUsersWrapper
 
 const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
 
-    const { userId } = params;
-
-    const language = 'en'; //todo
+    const { userId, language } = params;
 
     const months = await useMonths(language);
 
@@ -27,7 +25,7 @@ const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
         .catch((error) => {
             console.error(error)
         });
-    
+
     const upcomingFriendsData = friendsData.map((friend) => {
 
         const days_until = calculateDaysUntilBirthday(`${friend.day}/${friend.month}`);
@@ -44,8 +42,10 @@ const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
 
     return (
         <StyledSearchPage>
-            <Text tag='h1'>Add a friend</Text>
-            <NewUserFormInitial months={months} initialDay={currentDay as number} initialMonthIndex={currentMonthIndex as number} />
+            <Text tag='h1'>Blog</Text>
+            <section>
+                <NewUserFormInitial title='Add a friend' showDaysUntil={true} months={months} initialDay={currentDay as number} initialMonthIndex={currentMonthIndex as number} />
+            </section>
             <section>
                 <Text tag='h2'>My friends</Text>
                 <NoUsersWrapper usersData={friendsData as User[]}>
