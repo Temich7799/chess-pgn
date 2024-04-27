@@ -1,5 +1,5 @@
 import React from 'react'
-import { birthdaysRU, birthdaysEN, birthdaysDE } from '../../../lib/json/locales/birthdays'
+import { birthdaysRU, birthdaysEN, birthdaysDE } from '@/lib/json/locales/birthdays'
 import { Text } from '../../atoms/Text/Text';
 import styles from './BirthdayText.module.scss'
 

@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 
 import styles from './Input.module.scss';
-import { useCombinedRef } from '../../../hooks/useCombinedRef';
+import { useCombinedRef } from '@/hooks/useCombinedRef';
 import classNames from 'classnames';
 
 export interface IInput

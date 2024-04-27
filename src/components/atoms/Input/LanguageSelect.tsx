@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Input.module.scss';
-import { languages } from '../../../lib/json/languages';
+import { languages } from '@/lib/json/languages';
 
 interface LanguageSelectProps {
     selectedLanguage?: string;

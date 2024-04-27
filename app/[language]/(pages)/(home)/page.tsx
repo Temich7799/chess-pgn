@@ -3,12 +3,12 @@ import { BirthdayText } from '@/components/molecules/BirthdayText/BirthdayText';
 import { PageNextProps } from '@/ts/PageNextPropsType';
 import { User } from '@/ts/UserType';
 import { SearchUsersForm } from '@/components/organisms/SearchUsersForm/SearchUsersForm';
-import { useTranslation } from '../../../i18n';
 import useMonths from '@/hooks/useMonths';
 import UsersTable from '@/components/organisms/UsersTable/UsersTable';
 import StyledSearchPage from '@/components/molecules/StyledSearchPage/StyledSearchPage';
 import NoUsersWrapper from '@/components/molecules/NoUsersWrapper/NoUsersWrapper';
 import NewUserFormInitial from '@/components/organisms/NewUserFormInitial/NewUserFormInitial';
+import { useTranslation } from '../../../i18n';
 
 export const metadata = {
   title: 'Next.js',

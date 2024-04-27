@@ -1,4 +1,4 @@
-// import { emailValidator, baseValidator } from '../../../src/utils/validation';
+// import { emailValidator, baseValidator } from '@/src/utils/validation';
 import { PageNextProps } from '@/ts/PageNextPropsType';
 import NewUserFormWrapper from '@/components/molecules/NewUserFormWrapper/NewUserFormWrapper';
 

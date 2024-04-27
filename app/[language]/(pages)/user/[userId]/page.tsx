@@ -4,10 +4,10 @@ import { PageNextProps } from '@/ts/PageNextPropsType';
 import useMonths from '@/hooks/useMonths';
 import NewUserFormInitial from '@/components/organisms/NewUserFormInitial/NewUserFormInitial';
 import UsersTable from '@/components/organisms/UsersTable/UsersTable';
-import { useTranslation } from '../../../../i18n';
 import { User } from '@/ts/UserType';
 import calculateDaysUntilBirthday from '@/utils/calculateDaysUntilBirthday';
 import NoUsersWrapper from '@/components/molecules/NoUsersWrapper/NoUsersWrapper';
+import { useTranslation } from '../../../../i18n';
 
 const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
 
@@ -19,14 +19,14 @@ const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
 
     const { day: currentDay = date.getDate(), month: currentMonthIndex = date.getMonth() + 1, city } = searchParams;
 
-    const friendsData: User[] = await fetch(process.env.NEXT_API_BASE_URL + 'getAllFriends', { method: 'POST', body: JSON.stringify({ userId }) })
+    const friendsData: User[] = await fetch(process.env.NEXT_API_BASE_URL + 'getAllUserFriends', { method: 'POST', body: JSON.stringify({ userId }) })
         .then((res) => res.json())
         .then((res) => res)
         .catch((error) => {
             console.error(error)
         });
 
-    const upcomingFriendsData = friendsData.map((friend) => {
+    const upcomingFriendsData = friendsData && friendsData.map((friend) => {
 
         const days_until = calculateDaysUntilBirthday(`${friend.day}/${friend.month}`);
 

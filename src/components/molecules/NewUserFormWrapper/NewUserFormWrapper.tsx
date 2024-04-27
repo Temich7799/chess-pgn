@@ -1,6 +1,6 @@
 import styles from './NewUserFormWrapper.module.scss';
 import { Text } from "@/components/atoms/Text/Text";
-import { useTranslation } from "../../../../app/i18n";
+import { useTranslation } from "@/../app/i18n";
 import useMonths from "@/hooks/useMonths";
 import NewUserFormFull from "@/components/organisms/NewUserFormFull/NewUserFormFull";
 
