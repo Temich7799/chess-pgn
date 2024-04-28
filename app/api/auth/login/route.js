@@ -1,3 +1,4 @@
+import generateToken from '@/utils/generateToken';
 import {
     getConnection
 } from '../../../../src/lib/db';

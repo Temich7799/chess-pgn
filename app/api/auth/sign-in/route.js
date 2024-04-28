@@ -18,14 +18,20 @@ export async function POST(req, res) {
         password
     } = data;
 
-    if (!name || !day || !month || !city || !language || !foreign || !another_foreign || !email || !note || !password) {
+    if (!email || !password) {
         res.status = 400;
-        return Response.json('All fields are required');
+        return Response.json('Required fields are missed');
+    }
+
+    if (!name && !day && !month && !city && !language && !foreign && !another_foreign && !email && !note && !password) {
+        res.status = 400;
+        return Response.json('All fields are empty');
     }
 
     const connection = await getConnection();
 
     try {
+
         const [existingUser] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (existingUser.length > 0) {

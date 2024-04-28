@@ -14,7 +14,7 @@ const NoUsersContent: React.FC<{ message?: string }> = ({ message }) => {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '15px' }}>
             <p>{message ? message : 'There is currently no data available for the current date. Be the first!'}</p>
-            <Button onClick={() => router.push('new')}>
+            <Button onClick={() => router.push('auth/sign-up')}>
                 Add
             </Button>
         </div>
