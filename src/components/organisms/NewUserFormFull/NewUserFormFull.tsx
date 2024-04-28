@@ -89,6 +89,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 				<BirthdayInput months={months} initialMonthIndex={initialMonth} initialDay={initialDay} onChangeHandler={onBirthdayChangeHandler} />
 				<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
 				<Input required type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
+				<Input required type="password" id="password" placeholder="Password" onChange={onChangeHandler} />
 				<LanguageSelect id="language" defaultValue={langPlaceholder} selectedLanguage={formData.language} onChange={onChangeHandler} />
 				<LanguageSelect id="foreign" defaultValue={secondLangPlaceholder} selectedLanguage={formData.foreign} onChange={onChangeHandler} />
 				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign} onChange={onChangeHandler} />
