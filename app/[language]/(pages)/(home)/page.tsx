@@ -9,6 +9,7 @@ import StyledSearchPage from '@/components/molecules/StyledSearchPage/StyledSear
 import NoUsersWrapper from '@/components/molecules/NoUsersWrapper/NoUsersWrapper';
 import NewUserFormInitial from '@/components/organisms/NewUserFormInitial/NewUserFormInitial';
 import { useTranslation } from '../../../i18n';
+import { cookies } from 'next/headers';
 
 export const metadata = {
   title: 'Next.js',
@@ -39,14 +40,18 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
   const { t } = await useTranslation(language);
   const months = await useMonths(language);
 
+  const cookieStore = cookies();
+
+  const isLogged = cookieStore.has('Auth');
+
   return (
     <StyledSearchPage>
       <SearchUsersForm months={months} title={t('choose')} buttonTitle={t('search_btn')} cityLabel={t('cities')} currentMonth={currentMonthIndex as number} currentCity={city as string} currentDay={currentDay as number} />
-      <NoUsersWrapper usersData={usersData as User[]}>
+      <NoUsersWrapper usersData={usersData as User[]} actionPath='/auth/login'>
         <UsersTable data={usersData as User[]} t={t} exclude={['month', 'day', 'note']} />
       </NoUsersWrapper>
       <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
-      {usersData?.length && <NewUserFormInitial title="Add a new user" actionPath="/auth/sign-up" months={months} initialMonthIndex={currentMonthIndex as number} initialDay={currentDay as number} />}
+      {!isLogged && usersData?.length && <NewUserFormInitial title="Add a new user" actionPath="/auth/sign-up" months={months} initialMonthIndex={currentMonthIndex as number} initialDay={currentDay as number} />}
     </StyledSearchPage>
   );
 }

@@ -12,10 +12,11 @@ import StyledForm from '@/components/molecules/StyledForm/StyledForm';
 import BirthdayInput from '@/components/atoms/BirthdayInput/BirthdayInput';
 import { Text } from '@/components/atoms/Text/Text';
 import { useAddFriendshipMutation } from '@/lib/redux/api/userApi';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useRegisterMutation } from '@/lib/redux/api/authApi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useRouter } from 'next/navigation';
 
 export type NewUserFormProps = {
 	months: Array<Month>;
@@ -38,6 +39,8 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 	const { language } = useLanguageContext();
 	const searchParams = useSearchParams();
 
+	const router = useRouter();
+
 	const initialMonth = useMemo(() => parseInt(searchParams.get('month') || `${currentMonthIndex}`), [currentMonthIndex, searchParams]);
 	const initialDay = useMemo(() => parseInt(searchParams.get('day') || `${currentDay}`), [currentDay, searchParams]);
 	const initialName = useMemo(() => searchParams.get('name') || undefined, [searchParams]);
@@ -52,11 +55,11 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 	const [friendId, setFriendId] = useState<string>();
 
 	const [register, { data, isLoading: isRegisterProcessing, isError: isRegisterError, isSuccess: isRegisterSuccess }] = useRegisterMutation();
-	const [addFriendsip, { isLoading: isFriendshipProcessing, isError: isFriendshipError, isSuccess: isFriendshipSuccess }] = useAddFriendshipMutation();
+	const [addFriendship, { isLoading: isFriendshipProcessing, isError: isFriendshipError, isSuccess: isFriendshipSuccess }] = useAddFriendshipMutation();
 
 	const isLoading = isRegisterProcessing || isFriendshipProcessing;
 	const isError = isRegisterError || isFriendshipError;
-	const isSuccess = isRegisterSuccess || isFriendshipSuccess;
+	const isSuccess = isRegisterSuccess && isFriendshipSuccess;
 
 	const onSubmitHandler = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -73,22 +76,25 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 	}, []);
 
 	useEffect(() => {
+		console.log(userId, type, friendId)
 		if (userId && type === 'friend' && friendId) {
-			(isRegisterSuccess && friendId) && addFriendsip({ userId, friendId });
+			(isRegisterSuccess && friendId) && addFriendship({ userId, friendId });
 		}
-	}, [addFriendsip, friendId, isRegisterSuccess, type, userId]);
-
-	useEffect(() => {
-		// isSuccess && router.back();
-	}, [isSuccess]);
+	}, [addFriendship, friendId, isRegisterSuccess, type, userId]);
 
 	const { namePlaceholder, cityPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
+
+	const pathname = usePathname();
 
 	useEffect(() => {
 		if (isLoading) {
 			toast.info('Adding user...', { autoClose: false });
 		} else if (isSuccess) {
 			toast.success('User added successfully!');
+			if (pathname.includes('user')) {
+				router.back();
+			}
+			else router.push('/auth/login');
 		} else if (isError) {
 			toast.error('Error. Please try again.');
 		}

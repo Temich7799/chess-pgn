@@ -4,10 +4,17 @@ import {
 } from '../../../../src/lib/db';
 import bcrypt from 'bcrypt';
 import {
-    setCookie
+    serialize
 } from 'cookie';
+import {
+    headers
+} from 'next/headers';
+import {
+    NextResponse
+} from 'next/server';
 
 export async function POST(req, res) {
+
     const data = await req.json();
 
     const {
@@ -47,12 +54,16 @@ export async function POST(req, res) {
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         };
 
-        setCookie(res, 'authToken', token, cookieOptions);
+        const serializedCookie = serialize('authToken', token, cookieOptions);
 
-        return Response.json({
+        const response = NextResponse.json({
             userId: user.id,
             status: 'Authenticated successfully',
         });
+
+        response.cookies.set('Auth', serializedCookie);
+
+        return response;
     } catch (error) {
         console.error('Error authenticating user: ' + error.stack);
         return Response.json('Error authenticating user', {

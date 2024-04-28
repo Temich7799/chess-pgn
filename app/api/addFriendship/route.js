@@ -32,10 +32,10 @@ export async function POST(req, res) {
 
         await connection.query('INSERT INTO friendships (user_id, friend_id) VALUES (?, ?)', [userId, friendId]);
 
-        Response.json('Friend added successfully');
+        return Response.json('Friend added successfully');
     } catch (error) {
         console.error('Error adding friend: ' + error.stack);
-        Response.json('Error adding friend', {
+        return Response.json('Error adding friend', {
             status: 500
         });
     } finally {

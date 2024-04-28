@@ -48,11 +48,11 @@ const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
             </section>
             <section>
                 <Text tag='h2'>My friends</Text>
-                <NoUsersWrapper usersData={friendsData as User[]}>
+                <NoUsersWrapper usersData={friendsData as User[]} actionPath='/add-friend'>
                     <UsersTable data={friendsData as User[]} t={t} exclude={['language', 'foreign', 'another_foreign']} />
                 </NoUsersWrapper>
                 <Text tag='h2'>Upcoming birthdays</Text>
-                <NoUsersWrapper usersData={upcomingFriendsData || []}>
+                <NoUsersWrapper usersData={upcomingFriendsData || []} actionPath='/add-friend'>
                     <UsersTable data={upcomingFriendsData || []}
                         t={t}
                         exclude={['language', 'foreign', 'another_foreign']}

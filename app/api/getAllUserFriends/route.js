@@ -33,13 +33,15 @@ export async function POST(req, res) {
 
         const query = `
             SELECT ${fieldsToSelect}
-            FROM users p
-            INNER JOIN friendships f ON p.id = f.friend_id
-            WHERE f.id = ?
-            ORDER BY p.name
+            FROM friendships f
+            INNER JOIN users u ON u.id = f.friend_id
+            WHERE f.user_id = ?
+            ORDER BY u.name
         `;
 
         const [results, fields] = await connection.query(query, [userId]);
+
+        console.log(userId)
 
         return Response.json(results);
     } catch (error) {
