@@ -1,6 +1,8 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Input } from '@/components/atoms/Input';
 import { Button } from '@/components/atoms/Button/Button';
 import { useLanguageContext } from '@/contexts/CurrentLanguageContext';
@@ -21,28 +23,29 @@ const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle 
 
     const [login, { data, isLoading, isError, isSuccess }] = useLoginMutation();
 
-    const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
         try {
             await login(formData);
-            console.log('Login successful', data);
         } catch (error) {
             console.error('Login error:', error);
         }
-    }, [formData, login]);
+    };
 
-    const onChangeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prevData => ({ ...prevData, [name]: value }));
-    }, []);
+    };
 
     useEffect(() => {
-        if (isSuccess) {
-            console.log('Login successful');
+        if (isLoading) {
+            toast.info('Logging in...', { autoClose: false });
+        } else if (isSuccess) {
+            toast.success('Login successful!');
+        } else if (isError) {
+            toast.error('Error: Incorrect email or password');
         }
-    }, [isSuccess]);
+    }, [isLoading, isSuccess, isError]);
 
     return (
         <StyledForm>
@@ -51,7 +54,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle 
                 <Input type="password" name="password" placeholder="Password" value={formData.password} onChange={onChangeHandler} />
                 <Button type="submit" disabled={isLoading}>{isLoading ? 'Logging in...' : buttonTitle}</Button>
                 <Link href="/auth/sign-up"><Button>{registerButtonTitle}</Button></Link>
-                {isError && <p >Error: Incorrect email or password</p>}
             </form>
         </StyledForm>
     );

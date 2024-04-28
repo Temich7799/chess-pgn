@@ -14,6 +14,8 @@ import { Text } from '@/components/atoms/Text/Text';
 import { useAddFriendshipMutation } from '@/lib/redux/api/userApi';
 import { useSearchParams } from 'next/navigation';
 import { useRegisterMutation } from '@/lib/redux/api/authApi';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export type NewUserFormProps = {
 	months: Array<Month>;
@@ -60,7 +62,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 		e.preventDefault();
 		await register(formData);
 		(type === 'friend' && data?.data) && setFriendId(data.data.userId);
-	}, [ data, formData, type]);
+	}, [data, formData, type]);
 
 	const onChangeHandler = useCallback(({ target }: any) => {
 		target.id ? setFormData((prevData: any) => ({ ...prevData, [target.id]: target.value })) : console.error('key arg is not specified');
@@ -81,6 +83,16 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 	}, [isSuccess]);
 
 	const { namePlaceholder, cityPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
+
+	useEffect(() => {
+		if (isLoading) {
+			toast.info('Adding user...', { autoClose: false });
+		} else if (isSuccess) {
+			toast.success('User added successfully!');
+		} else if (isError) {
+			toast.error('Error. Please try again.');
+		}
+	}, [isLoading, isSuccess, isError]);
 
 	return (
 		<StyledForm>
