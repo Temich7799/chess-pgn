@@ -3,7 +3,7 @@ import '../../src/index.scss';
 import { ReactNode } from "react";
 import { dir } from 'i18next';
 import { languages } from '../i18n/settings';
-import AuthProvider from "@/contexts/providers/AuthProvider";
+import AuthProvider from "@/contexts/providers/auth";
 
 type RootLayoutProps = {
   children: ReactNode;
