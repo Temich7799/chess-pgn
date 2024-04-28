@@ -9,6 +9,7 @@ import { useLanguageContext } from '@/contexts/CurrentLanguageContext';
 import StyledForm from '@/components/molecules/StyledForm/StyledForm';
 import { useLoginMutation } from '@/lib/redux/api/authApi';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type LoginFormProps = {
     buttonTitle: string;
@@ -18,6 +19,8 @@ type LoginFormProps = {
 const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle }) => {
 
     const { language } = useLanguageContext();
+
+    const router = useRouter();
 
     const [formData, setFormData] = useState<{ email: string; password: string }>({ email: '', password: '' });
 
@@ -42,6 +45,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle 
             toast.info('Logging in...', { autoClose: false });
         } else if (isSuccess) {
             toast.success('Login successful!');
+            router.back();
         } else if (isError) {
             toast.error('Error: Incorrect email or password', { autoClose: false });
         }

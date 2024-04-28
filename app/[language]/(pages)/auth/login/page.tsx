@@ -2,7 +2,6 @@ import LoginForm from '@/components/organisms/LoginForm/LoginForm';
 import { PageNextProps } from '@/ts/PageNextPropsType';
 import styles from '@/components/molecules/NewUserFormWrapper/NewUserFormWrapper.module.scss'
 import { Text } from '@/components/atoms/Text/Text';
-// import NewUserFormWrapper from '@/components/molecules/NewUserFormWrapper/NewUserFormWrapper';
 
 export default function LoginPage({ params }: PageNextProps) {
 

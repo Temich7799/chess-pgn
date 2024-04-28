@@ -32,7 +32,7 @@ export type NewUserFormProps = {
 	userId?: string;
 }
 
-const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonTitle, type = 'user', userId }) => {
+const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonTitle, type = 'user', userId: userIdProps }) => {
 
 	const { currentMonthIndex, currentDay } = useMemo(() => getCurrentDate(), []);
 
@@ -52,19 +52,19 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 		language,
 	}));
 
+	const [userId, setUserId] = useState(userIdProps);
 	const [friendId, setFriendId] = useState<string>();
 
-	const [register, { data, isLoading: isRegisterProcessing, isError: isRegisterError, isSuccess: isRegisterSuccess }] = useRegisterMutation();
+	const [register, { data = {}, isLoading: isRegisterProcessing, isError: isRegisterError, isSuccess: isRegisterSuccess }] = useRegisterMutation();
 	const [addFriendship, { isLoading: isFriendshipProcessing, isError: isFriendshipError, isSuccess: isFriendshipSuccess }] = useAddFriendshipMutation();
 
 	const isLoading = isRegisterProcessing || isFriendshipProcessing;
 	const isError = isRegisterError || isFriendshipError;
-	const isSuccess = isRegisterSuccess && isFriendshipSuccess;
+	const isSuccess = type === 'user' ? isRegisterSuccess : (isRegisterSuccess && isFriendshipSuccess);
 
 	const onSubmitHandler = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		await register(formData);
-		(type === 'friend' && data?.data) && setFriendId(data.data.userId);
 	}, [data, formData, type]);
 
 	const onChangeHandler = useCallback(({ target }: any) => {
@@ -76,11 +76,18 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 	}, []);
 
 	useEffect(() => {
-		console.log(userId, type, friendId)
+		if (data.data) {
+			if (type === 'friend') {
+				setFriendId(data.data.userId);
+			}
+			else {
+				setUserId(data.data.userId);
+			}
+		}
 		if (userId && type === 'friend' && friendId) {
 			(isRegisterSuccess && friendId) && addFriendship({ userId, friendId });
 		}
-	}, [addFriendship, friendId, isRegisterSuccess, type, userId]);
+	}, [addFriendship, friendId, isRegisterSuccess, type, userId, data]);
 
 	const { namePlaceholder, cityPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
 
@@ -94,11 +101,11 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 			if (pathname.includes('user')) {
 				router.back();
 			}
-			else router.push('/auth/login');
+			else if (userId) router.push(`/user/${userId}`);
 		} else if (isError) {
 			toast.error('Error. Please try again.');
 		}
-	}, [isLoading, isSuccess, isError]);
+	}, [isLoading, isSuccess, isError, userId]);
 
 	return (
 		<StyledForm>
@@ -111,6 +118,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 				<LanguageSelect id="language" defaultValue={langPlaceholder} selectedLanguage={formData.language} onChange={onChangeHandler} />
 				<LanguageSelect id="foreign" defaultValue={secondLangPlaceholder} selectedLanguage={formData.foreign} onChange={onChangeHandler} />
 				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign} onChange={onChangeHandler} />
+				{type === 'friend' && <Input type='textfield' id='note' placeholder="Notes" onChange={onChangeHandler} />}
 				<Button type='submit' disabled={isLoading} className={styles.submitBtn}>{isLoading ? 'Sending..' : buttonTitle}</Button>
 				{isError && <Text tag='p' style={{ color: 'red' }}>Error. Try again</Text>}
 			</form>
