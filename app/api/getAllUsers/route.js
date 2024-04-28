@@ -13,9 +13,10 @@ export async function GET(req, res) {
     const city = searchParams.get('city');
 
     if (!birthday) {
-        res.status = 400;
         return Response.json({
             error: 'Birthday is required',
+        }, {
+            status: 400
         });
     }
 
@@ -39,9 +40,10 @@ export async function GET(req, res) {
 
         return Response.json(results);
     } catch (error) {
-        res.status = 500;
         return Response.json({
             error: error.message,
+        }, {
+            status: 500
         });
     } finally {
         connection.end();

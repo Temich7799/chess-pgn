@@ -4,7 +4,9 @@ import {
 import bcrypt from 'bcrypt';
 
 export async function POST(req, res) {
+
     const data = await req.json();
+
     const {
         name,
         day,
@@ -19,24 +21,26 @@ export async function POST(req, res) {
     } = data;
 
     if (!email || !password) {
-        res.status = 400;
-        return Response.json('Required fields are missed');
+        return Response.json('Required fields are missed', {
+            status: 400
+        });
     }
 
     if (!name && !day && !month && !city && !language && !foreign && !another_foreign && !email && !note && !password) {
-        res.status = 400;
-        return Response.json('All fields are empty');
+        return Response.json('All fields are empty', {
+            status: 400
+        });
     }
 
     const connection = await getConnection();
 
     try {
-
         const [existingUser] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (existingUser.length > 0) {
-            res.status = 400;
-            return Response.json('User already exists');
+            return Response.json('User already exists', {
+                status: 400
+            });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10); // 10 is the salt rounds
@@ -44,7 +48,6 @@ export async function POST(req, res) {
         const query = 'INSERT INTO users (name, day, month, city, `language`, `foreign`, another_foreign, email, note, `password`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
         const [result] = await connection.query(query, [name, day, month, city, language, foreign, another_foreign, email, note, hashedPassword]);
 
-        res.status = 200;
         return Response.json({
             data: {
                 userId: result.insertId,
@@ -53,8 +56,9 @@ export async function POST(req, res) {
         });
     } catch (error) {
         console.error('Error adding user: ' + error.stack);
-        res.status = 500;
-        return Response.json('Error adding user');
+        return Response.json('Error adding user', {
+            status: 500
+        });
     } finally {
         connection.end();
     }

@@ -12,8 +12,9 @@ export async function POST(req, res) {
     } = data;
 
     if (userId === friendId) {
-        res.status(400).json('User and friend cannot be the same');
-        return;
+        return Response.json('User and friend cannot be the same', {
+            status: 400
+        });
     }
 
     const connection = await getConnection();
@@ -24,18 +25,19 @@ export async function POST(req, res) {
         const friendExists = await connection.query('SELECT * FROM users WHERE id = ?', [friendId]);
 
         if (userExists.length === 0 || friendExists.length === 0) {
-            res.status = 400;
-            return Response.json('One or both users do not exist');
+            return Response.json('One or both users do not exist', {
+                status: 400
+            });
         }
 
         await connection.query('INSERT INTO friendships (user_id, friend_id) VALUES (?, ?)', [userId, friendId]);
 
-        res.status = 200;
         Response.json('Friend added successfully');
     } catch (error) {
         console.error('Error adding friend: ' + error.stack);
-        res.status = 500;
-        Response.json('Error adding friend');
+        Response.json('Error adding friend', {
+            status: 500
+        });
     } finally {
         connection.end();
     }

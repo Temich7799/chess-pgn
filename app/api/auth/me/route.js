@@ -5,11 +5,10 @@ export async function GET(req, res) {
     } = req;
 
     if (!cookies.authToken) {
-        res.status = 401;
-        return Response.json('User not authenticated');
+        return Response.json('User not authenticated', {
+            status: 401
+        });
     }
-
-    res.status = 200;
 
     return Response.json('User authenticated');
 }

@@ -8,7 +8,6 @@ import {
 } from 'cookie';
 
 export async function POST(req, res) {
-
     const data = await req.json();
 
     const {
@@ -17,27 +16,29 @@ export async function POST(req, res) {
     } = data;
 
     if (!email || !password) {
-        res.status = 400;
-        return Response.json('Email and password are required');
+        return Response.json('Email and password are required', {
+            status: 400
+        });
     }
 
     const connection = await getConnection();
 
     try {
-
         const [results] = await connection.query('SELECT * FROM users WHERE email = ?', [email]);
 
         if (results.length === 0) {
-            res.status = 400;
-            return Response.json('User not found');
+            return Response.json('User not found', {
+                status: 400
+            });
         }
 
         const user = results[0];
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
-            res.status = 401;
-            return Response.json('Invalid password');
+            return Response.json('Invalid password', {
+                status: 401
+            });
         }
 
         const token = generateToken();
@@ -48,15 +49,15 @@ export async function POST(req, res) {
 
         setCookie(res, 'authToken', token, cookieOptions);
 
-        res.status = 200;
         return Response.json({
             userId: user.id,
             status: 'Authenticated successfully',
         });
     } catch (error) {
         console.error('Error authenticating user: ' + error.stack);
-        res.status = 500;
-        return Response.json('Error authenticating user');
+        return Response.json('Error authenticating user', {
+            status: 500
+        });
     } finally {
         connection.end();
     }

@@ -43,7 +43,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle 
         } else if (isSuccess) {
             toast.success('Login successful!');
         } else if (isError) {
-            toast.error('Error: Incorrect email or password');
+            toast.error('Error: Incorrect email or password', { autoClose: false });
         }
     }, [isLoading, isSuccess, isError]);
 

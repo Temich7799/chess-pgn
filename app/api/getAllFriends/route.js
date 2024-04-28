@@ -14,8 +14,9 @@ export async function POST(req, res) {
     } = data;
 
     if (!userId) {
-        res.status = 400;
-        return Response.json('userId is required');
+        return Response.json('userId is required', {
+            status: 400
+        });
     }
 
     const connection = await getConnection();
@@ -40,12 +41,12 @@ export async function POST(req, res) {
 
         const [results, fields] = await connection.query(query, [userId]);
 
-        res.status = 200;
         return Response.json(results);
     } catch (error) {
         console.error('Error fetching friends: ' + error.stack);
-        res.status = 500;
-        return Response.json('Error fetching friends');
+        return Response.json('Error fetching friends', {
+            status: 500
+        });
     } finally {
         connection.end();
     }
