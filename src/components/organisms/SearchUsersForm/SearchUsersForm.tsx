@@ -51,7 +51,7 @@ export const SearchUsersForm: React.FC<SearchUsersFormProps> = ({ currentMonth: 
       <StyledForm>
         <form onSubmit={onSubmitHandler}>
           <BirthdayInput months={months} initialMonthIndex={initialMonthIndex} initialDay={initialDay} onChangeHandler={onChangeHandler} />
-          <Input type="cities" placeholder="cities" label={cityLabel} name="cities" defaultValue={initialCity} onChange={(e: any) => { onChangeHandler(e.target.value, 'city') }} />
+          <Input type="cities" placeholder={cityLabel} name="cities" defaultValue={initialCity} onChange={(e: any) => { onChangeHandler(e.target.value, 'city') }} />
           <Button type="submit">{buttonTitle}</Button>
         </form>
       </StyledForm>

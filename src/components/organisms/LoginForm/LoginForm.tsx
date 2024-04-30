@@ -14,9 +14,12 @@ import { useRouter } from 'next/navigation';
 type LoginFormProps = {
     buttonTitle: string;
     registerButtonTitle: string;
+    placeholders: {
+        passwordPlaceholder?: string;
+    }
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle, placeholders = {} }) => {
 
     const { language } = useLanguageContext();
 
@@ -55,7 +58,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ buttonTitle, registerButtonTitle 
         <StyledForm>
             <form onSubmit={handleSubmit}>
                 <Input type="email" name="email" placeholder="Email" value={formData.email} onChange={onChangeHandler} />
-                <Input type="password" name="password" placeholder="Password" value={formData.password} onChange={onChangeHandler} />
+                <Input type="password" name="password" placeholder={placeholders.passwordPlaceholder} value={formData.password} onChange={onChangeHandler} />
                 <Button type="submit" disabled={isLoading}>{isLoading ? 'Logging in...' : buttonTitle}</Button>
                 <Link href="/auth/sign-up"><Button>{registerButtonTitle}</Button></Link>
             </form>

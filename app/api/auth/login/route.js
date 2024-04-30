@@ -38,7 +38,7 @@ export async function POST(req, res) {
                 status: 400
             });
         }
-
+        
         const user = results[0];
         const passwordMatch = await bcrypt.compare(password, user.password);
 

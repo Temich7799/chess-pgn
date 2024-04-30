@@ -9,18 +9,19 @@ const NewUserFormWrapper: React.FC<{ title?: string, language: string, type?: 'u
     const { t } = await useTranslation(language);
     const months = await useMonths(language);
 
-    const formPlaceholdres = {
+    const formPlaceholders = {
         namePlaceholder: t('name'),
         cityPlaceholder: t('city'),
         langPlaceholder: t('language'),
         secondLangPlaceholder: t('foreign'),
+        passwordPlaceholder: t('password_holder'),
         thirdLangPlaceholder: t('another_foreign'),
     }
 
     return (
         <div className={styles.signup}>
             {title && <Text tag="h1">{title}</Text>}
-            <NewUserFormFull months={months} placeholdres={formPlaceholdres} buttonTitle={t('submit')} type={type} userId={userId} />
+            <NewUserFormFull months={months} placeholders={formPlaceholders} buttonTitle={t('submit')} type={type} userId={userId} />
         </div>
     )
 }

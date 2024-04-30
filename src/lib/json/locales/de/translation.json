@@ -1,10 +1,10 @@
 {
-    "signup": "Melden Sie sich an",
+    "sign-up": "Sei mit uns!",
     "name": "Vorname",
     "city": "Wohnort",
-    "language": "Muttersprache",
-    "foreign": "1 Fremdsprache",
-    "another_foreign": "2 Fremdsprachen",
+    "language": "Deine Sprache",
+    "foreign": "2. Sprache",
+    "another_foreign": "3. Sprache",
     "cities": "Alle Städte",
     "date": "Datum",
     "birthday": "Geburtstag",
@@ -24,5 +24,10 @@
     "day": "Geburtstag",
     "month": "Geburtsmonat",
     "search_btn": "Suche",
-    "choose": "Wählen"
+    "choose": "Wähl dein Tag",
+    "user_new": "Sei mit uns",
+    "name_holder": "Dein Name",
+    "month_holder": "Dein Geburtsmonat",
+    "day_holder": "Dein Geburtstag",
+    "password_holder": "Passwort"
 }

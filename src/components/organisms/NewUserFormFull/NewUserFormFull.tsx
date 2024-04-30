@@ -20,10 +20,11 @@ import { useRouter } from 'next/navigation';
 
 export type NewUserFormProps = {
 	months: Array<Month>;
-	placeholdres: {
+	placeholders: {
 		namePlaceholder: string;
 		cityPlaceholder: string;
 		langPlaceholder: string;
+		passwordPlaceholder: string;
 		secondLangPlaceholder: string;
 		thirdLangPlaceholder: string;
 	}
@@ -32,7 +33,7 @@ export type NewUserFormProps = {
 	userId?: string;
 }
 
-const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, buttonTitle, type = 'user', userId: userIdProps }) => {
+const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholders: placeholdres, buttonTitle, type = 'user', userId: userIdProps }) => {
 
 	const { currentMonthIndex, currentDay } = useMemo(() => getCurrentDate(), []);
 
@@ -89,7 +90,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 		}
 	}, [addFriendship, friendId, isRegisterSuccess, type, userId, data]);
 
-	const { namePlaceholder, cityPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
+	const { namePlaceholder, cityPlaceholder, passwordPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
 
 	const pathname = usePathname();
 
@@ -114,7 +115,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholdres, but
 				<BirthdayInput months={months} initialMonthIndex={initialMonth} initialDay={initialDay} onChangeHandler={onBirthdayChangeHandler} />
 				<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
 				<Input required type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
-				<Input required type="password" id="password" placeholder="Password" onChange={onChangeHandler} />
+				<Input required type="password" id="password" placeholder={passwordPlaceholder} onChange={onChangeHandler} />
 				<LanguageSelect id="language" defaultValue={langPlaceholder} selectedLanguage={formData.language} onChange={onChangeHandler} />
 				<LanguageSelect id="foreign" defaultValue={secondLangPlaceholder} selectedLanguage={formData.foreign} onChange={onChangeHandler} />
 				<LanguageSelect id="another_foreign" defaultValue={thirdLangPlaceholder} selectedLanguage={formData.another_foreign} onChange={onChangeHandler} />

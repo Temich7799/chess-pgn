@@ -51,7 +51,7 @@ export default async function SearchUsersPage({ searchParams, params }: PageNext
         <UsersTable data={usersData as User[]} t={t} exclude={['month', 'day', 'note']} />
       </NoUsersWrapper>
       <BirthdayText month={currentMonthIndex as string} day={`${currentDay}`} language={language} />
-      {!isLogged && usersData?.length && <NewUserFormInitial title="Add a new user" actionPath="/auth/sign-up" months={months} initialMonthIndex={currentMonthIndex as number} initialDay={currentDay as number} />}
+      {!isLogged && usersData?.length && <NewUserFormInitial title={t('user_new')} namePlaceholder={t('name_holder')} actionPath="/auth/sign-up" months={months} initialMonthIndex={currentMonthIndex as number} initialDay={currentDay as number} />}
     </StyledSearchPage>
   );
 }

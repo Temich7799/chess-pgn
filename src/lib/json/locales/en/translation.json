@@ -1,5 +1,5 @@
 {
-    "signup": "Sign up",
+    "sign-up": "Sign up",
     "name": "First name",
     "city": "City of residence",
     "language": "Native language",
@@ -24,5 +24,10 @@
     "day": "Birthday",
     "month": "Birth month",
     "search_btn": "Search",
-    "choose": "Choose"
+    "choose": "Choose",
+    "user_new": "Add a new user",
+    "name_holder": "Name",
+    "month_holder": "Month",
+    "day_holder": "Day",
+    "password_holder": "Password"
 }

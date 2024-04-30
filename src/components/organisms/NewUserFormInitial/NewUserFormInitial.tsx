@@ -19,9 +19,10 @@ type NewUserFormInitialProps = {
     showDaysUntil?: boolean;
     title?: string;
     actionPath?: string;
+    namePlaceholder?: string;
 }
 
-const NewUserFormInitial: React.FC<NewUserFormInitialProps> = ({ months, initialMonthIndex, initialDay, showDaysUntil = false, title, actionPath = '/add-friend' }) => {
+const NewUserFormInitial: React.FC<NewUserFormInitialProps> = ({ months, initialMonthIndex, initialDay, showDaysUntil = false, title, actionPath = '/add-friend', namePlaceholder }) => {
 
     const [formData, setFormData] = useState<{ month: string; day: string; name: string }>(() => ({
         month: `${initialMonthIndex}`,
@@ -56,7 +57,7 @@ const NewUserFormInitial: React.FC<NewUserFormInitialProps> = ({ months, initial
         <StyledForm>
             {title && <Text tag="h2">{title}</Text>}
             <form onSubmit={handleSubmit}>
-                <Input type="text" placeholder="Name" required value={formData.name} onChange={onChangeNameHandler} />
+                <Input type="text" placeholder={namePlaceholder} required value={formData.name} onChange={onChangeNameHandler} />
                 <BirthdayInput months={months} initialMonthIndex={initialMonthIndex} initialDay={initialDay} onChangeHandler={handleChange} />
                 <Link href={currentPath + actionPath + queryString}>
                     <Button>Continue</Button>

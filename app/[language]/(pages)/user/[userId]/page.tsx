@@ -44,7 +44,7 @@ const UserPage: React.FC<PageNextProps> = async ({ params, searchParams }) => {
         <StyledSearchPage>
             <Text tag='h1'>Blog</Text>
             <section>
-                <NewUserFormInitial title='Add a friend' showDaysUntil={true} months={months} initialDay={currentDay as number} initialMonthIndex={currentMonthIndex as number} />
+                <NewUserFormInitial title='Add a friend' namePlaceholder={t('name_holder')} showDaysUntil={true} months={months} initialDay={currentDay as number} initialMonthIndex={currentMonthIndex as number} />
             </section>
             <section>
                 <Text tag='h2'>My friends</Text>
