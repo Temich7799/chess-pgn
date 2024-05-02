@@ -24,8 +24,10 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
     <html lang={language} dir={dir(language)}>
       <body>
         <AuthProvider>
-          {/* <LanguageSelector /> */}
-          {children}
+          <main>
+            {/* <LanguageSelector /> */}
+            {children}
+          </main>
         </AuthProvider>
       </body>
     </html>

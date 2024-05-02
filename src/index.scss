@@ -55,6 +55,21 @@ body {
   background: rgb(var(--background-rgb));
 }
 
+main {
+
+  width: 100vw;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 5%;
+
+  @media (max-width: 768px) {
+    align-items: start;
+  }
+}
+
 * {
   padding: 0;
   margin: 0;
