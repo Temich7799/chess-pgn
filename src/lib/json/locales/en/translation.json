@@ -29,5 +29,7 @@
     "name_holder": "Name",
     "month_holder": "Month",
     "day_holder": "Day",
-    "password_holder": "Password"
+    "password_holder": "Password",
+    "new_user_success": "User added successfully!",
+    "new_user_error": "This email already exists"
 }

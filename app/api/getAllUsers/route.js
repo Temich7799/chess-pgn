@@ -34,7 +34,7 @@ export async function GET(req, res) {
 
         const [day, month] = birthday.split('/');
 
-        const query = city ? `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month} AND city REGEXP = '${city}' ORDER BY name` : `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month} ORDER BY city`;
+        const query = city ? `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month} AND city REGEXP = '${city}' ORDER BY city` : `SELECT ${fieldsToSelect} FROM users WHERE day = ${day} AND month = ${month} ORDER BY city`;
 
         const [results, fields] = await connection.query(query);
 

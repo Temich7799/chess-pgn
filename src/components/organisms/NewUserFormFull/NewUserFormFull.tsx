@@ -28,13 +28,15 @@ export type NewUserFormProps = {
 		passwordPlaceholder: string;
 		secondLangPlaceholder: string;
 		thirdLangPlaceholder: string;
+		newUserSuccessMessage: string;
+		newUserErrorMessage: string;
 	}
 	buttonTitle: string;
 	type?: 'user' | 'friend';
 	userId?: string;
 }
 
-const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholders: placeholdres, buttonTitle, type = 'user', userId: userIdProps }) => {
+const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholders, buttonTitle, type = 'user', userId: userIdProps }) => {
 
 	const { currentMonthIndex, currentDay } = useMemo(() => getCurrentDate(), []);
 
@@ -91,7 +93,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholders: pla
 		}
 	}, [addFriendship, friendId, isRegisterSuccess, type, userId, data]);
 
-	const { namePlaceholder, cityPlaceholder, passwordPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder } = placeholdres;
+	const { namePlaceholder, cityPlaceholder, passwordPlaceholder, langPlaceholder, secondLangPlaceholder, thirdLangPlaceholder, newUserSuccessMessage, newUserErrorMessage } = placeholders;
 
 	const pathname = usePathname();
 
@@ -99,13 +101,13 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholders: pla
 		if (isLoading) {
 			toast.info('Adding user...', { autoClose: false });
 		} else if (isSuccess) {
-			toast.success('User added successfully!');
+			toast.success(newUserSuccessMessage);
 			if (pathname.includes('user')) {
 				router.back();
 			}
 			else if (userId) router.push(`/user/${userId}`);
 		} else if (isError) {
-			toast.error('Error. Please try again.');
+			toast.error(newUserErrorMessage);
 		}
 	}, [isLoading, isSuccess, isError, userId]);
 

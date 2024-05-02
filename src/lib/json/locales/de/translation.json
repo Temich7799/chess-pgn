@@ -29,5 +29,7 @@
     "name_holder": "Dein Name",
     "month_holder": "Dein Geburtsmonat",
     "day_holder": "Dein Geburtstag",
-    "password_holder": "Passwort"
+    "password_holder": "Passwort",
+    "new_user_success": "Benutzer erfolgreich hinzugefügt!",
+    "new_user_error": "Diese Email schon existiert"
 }

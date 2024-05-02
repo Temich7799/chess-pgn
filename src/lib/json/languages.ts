@@ -4,7 +4,19 @@ type Language = {
   nativeName: string
 }
 
-export const languages: Array<Language> = [
+export const languagesMain: Array<Language> = [
+  { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
+  { code: 'zh', name: 'Chinese', nativeName: '中文 (Zhōngwén), 汉语, 漢語' },
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'fr', name: 'French', nativeName: 'français, langue française' },
+  { code: 'de', name: 'German', nativeName: 'Deutsch' },
+  { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी, हिंदी' },
+  { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
+  { code: 'ru', name: 'Russian', nativeName: 'русский язык' },
+  { code: 'es', name: 'Spanish; Castilian', nativeName: 'español, castellano' },
+].sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+export const languagesFull: Array<Language> = [
   { code: 'ab', name: 'Abkhaz', nativeName: 'аҧсуа' },
   { code: 'aa', name: 'Afar', nativeName: 'Afaraf' },
   { code: 'af', name: 'Afrikaans', nativeName: 'Afrikaans' },
@@ -195,4 +207,4 @@ export const languages: Array<Language> = [
   { code: 'yi', name: 'Yiddish', nativeName: 'ייִדיש' },
   { code: 'yo', name: 'Yoruba', nativeName: 'Yorùbá' },
   { code: 'za', name: 'Zhuang, Chuang', nativeName: 'Saɯ cueŋƅ, Saw cuengh' },
-]//.sort((a: Language, b: Language) => a.name - b.name);
+].sort((a: any, b: any) => a.name - b.name);
