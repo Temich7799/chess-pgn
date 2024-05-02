@@ -1,16 +1,17 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQuery } from "./baseQuery";
-import { CityRespone } from "@/ts/CityResponseType";
+import { CityResponse } from "@/ts/CityResponseType";
 
 export const cityApi = createApi({
     baseQuery,
     endpoints: (builder) => ({
-        getAllCities: builder.query<CityRespone[], void>({
-            query: () => `/api/cities`,
+        getCities: builder.query<CityResponse[], string>({
+            query: (city) => `/api/getCities?city=${city}`,
         }),
     }),
 });
 
 export const {
-    useGetAllCitiesQuery,
+    useGetCitiesQuery,
+    useLazyGetCitiesQuery
 } = cityApi;

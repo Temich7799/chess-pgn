@@ -17,6 +17,7 @@ import { useRegisterMutation } from '@/lib/redux/api/authApi';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
+import CitySelect from '@/components/atoms/Input/CitySelect/CitySelect';
 
 export type NewUserFormProps = {
 	months: Array<Month>;
@@ -113,7 +114,7 @@ const NewUserFormFull: React.FC<NewUserFormProps> = ({ months, placeholders: pla
 			<form onSubmit={onSubmitHandler} style={{ flexDirection: 'column' }}>
 				<Input type="label" required id="name" defaultValue={initialName} placeholder={namePlaceholder} onChange={onChangeHandler} />
 				<BirthdayInput months={months} initialMonthIndex={initialMonth} initialDay={initialDay} onChangeHandler={onBirthdayChangeHandler} />
-				<Input type="label" id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
+				<CitySelect id="city" placeholder={cityPlaceholder} onChange={onChangeHandler} />
 				<Input required type="email" id="email" placeholder="Email" onChange={onChangeHandler} />
 				<Input required type="password" id="password" placeholder={passwordPlaceholder} onChange={onChangeHandler} />
 				<LanguageSelect id="language" defaultValue={langPlaceholder} selectedLanguage={formData.language} onChange={onChangeHandler} />

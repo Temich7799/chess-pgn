@@ -28,6 +28,7 @@ export interface IInput
   readonly white?: boolean;
   readonly required?: boolean;
   readonly id?: string;
+  readonly list?: string;
   readonly defaultValue?: string;
   readonly wrappDataTestid?: string;
   readonly size?: 'm' | 's' | 'l';
@@ -44,6 +45,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
       onChange,
       onFocus,
       onInput,
+      list,
       resetField,
       resetMask,
       handleSearch,
@@ -90,6 +92,7 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
           className={inputClasses}
           defaultValue={defaultValue}
           id={id}
+          list={list}
           maxLength={maxLength}
           onChange={handleChangeValue}
           placeholder={placeholder}

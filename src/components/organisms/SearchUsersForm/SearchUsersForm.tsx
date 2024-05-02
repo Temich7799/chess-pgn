@@ -10,6 +10,7 @@ import { DefaultSearchParams } from '@/ts/DefaultSearchParamsType';
 import createQueryString from '@/utils/createQueryString';
 import StyledForm from '@/components/molecules/StyledForm/StyledForm';
 import BirthdayInput from '@/components/atoms/BirthdayInput/BirthdayInput';
+import CitySelect from '@/components/atoms/Input/CitySelect/CitySelect';
 
 type SearchUsersFormProps = {
   months: Array<Month>;
@@ -51,7 +52,7 @@ export const SearchUsersForm: React.FC<SearchUsersFormProps> = ({ currentMonth: 
       <StyledForm>
         <form onSubmit={onSubmitHandler}>
           <BirthdayInput months={months} initialMonthIndex={initialMonthIndex} initialDay={initialDay} onChangeHandler={onChangeHandler} />
-          <Input type="cities" placeholder={cityLabel} name="cities" defaultValue={initialCity} onChange={(e: any) => { onChangeHandler(e.target.value, 'city') }} />
+          <CitySelect placeholder={cityLabel} id="city" defaultValue={initialCity} onChange={(e: any) => { onChangeHandler(e.target.value, 'city') }} />
           <Button type="submit">{buttonTitle}</Button>
         </form>
       </StyledForm>

@@ -1,3 +1,3 @@
-export type CityRespone = {
+export type CityResponse = {
     city: string;
 };
